@@ -1,0 +1,207 @@
+/* Clearfix */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-colour: #e3b10d;
+    --primary-heading-colour: #000000;
+    --secondary-colour: #815a06;
+    --secondary-heading-colour: #000000;
+    --tertiary-colour: #0daae3;
+    --white-text: #efefef;
+
+    --primary-font: helvetica;
+    --heading-font: "Epilogue", sans-serif;
+}
+
+.dark-mode {
+    --primary-colour: #1c1c1c;
+    --primary-heading-colour: #efefef;
+    --secondary-colour: ##222729;
+    --secondary-heading-colour: #e5e5e5;
+}
+
+html {
+    font-size: 62.5%;
+    background-color: var(--primary-colour);
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: var(--primary-font);
+    color: var(--primary-heading-colour);
+}
+
+/* Layout Containers */
+.section-primary {
+    padding: 10rem 5rem;
+    background-color: var(--primary-colour);
+    color: var(--primary-heading-colour);
+}
+
+.section-secondary {
+    padding: 10rem 5rem;
+    background-color: var(--secondary-colour);
+    color: var(--secondary-heading-colour);
+}
+
+.content-container {
+    max-width: 128rem;
+    margin: auto;
+}
+
+/* Typography Styles */
+.primary-heading, .secondary-heading {
+    font-family: var(--heading-font);
+    margin-bottom: 1rem;
+    font-size: 4rem;
+}
+
+.primary-heading {
+    color: var(--primary-heading-colour);
+}
+
+.secondary-heading {
+    color: var(--secondary-heading-colour);
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-content {
+    align-content: center;
+    margin-right: 5rem;
+}
+
+.header-image {
+    max-width: 60rem;
+    border: 5px solid var(--tertiary-colour);
+}
+
+
+/* Light Mode */
+.light-mode .white-img {
+    filter: invert(100%);
+}
+
+.white-img {
+    height: 3rem;
+    padding: 0.3rem 2rem;
+}
+
+
+/* Navigation Bar */
+.nav-toggle {
+    display: none; /* Hidden for large viewports */
+}
+
+nav {
+    background-color: var(--primary-colour);
+    width: 100%;
+    padding: 0.5rem;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-links li {
+    list-style-type: none;
+    padding: 1rem 10rem;
+}
+
+.nav-links a {
+    color: var(--primary-heading-colour);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 300;
+}
+
+.nav-links a:hover, .nav-links .active {
+    color: var(--tertiary-colour);
+    text-decoration: underline;
+}
+
+
+/* Detail Entry */
+.login {
+    height: 100%;
+    margin: 0;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    font-family: var(--primary-font);
+    background-color: var(--secondary-colour);
+}
+
+.login-container {
+    max-width: 40rem;
+    margin: auto;
+    padding: 2rem;
+    background-color: var(--primary-colour);
+    border-radius: 8px;
+    border: 3px solid var(--tertiary-colour);
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-size: 1.6rem;
+    padding: 1rem;
+    color: var(--primary-heading-colour);
+    font-family: var(--primary-font);
+    margin: 1rem;
+    justify-self: flex-start;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="datetime-local"], input[type="date"], textarea, select {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    border: 1px solid var(--secondary-colour);
+    border-radius: 5px;
+}
+
+.login-heading {
+    font-family: var(--heading-font);
+    padding-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+button {
+    font-family: var(--primary-font);
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    color: var(--secondary-heading-colour);
+    background-color: var(--tertiary-colour);
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 2rem;
+    border-radius: 25px;
+    transition: background-color 0.75s, color 0.75s;
+}
+
+button:hover {
+    background-color: var(--secondary-colour);
+    color: var(--white-text);
+}
