@@ -42,57 +42,95 @@
     </header>
 
     <div class="section-secondary">
-        <div id="user-details" class="login-container">
-            <h2 class="login-heading">Add Artifact</h2>
+        <div class="cataloguing-container">
+            <h2 class="primary-heading">Add Artifact</h2>
             <div class="form-container">
-                <form action="" method="POST"> <!-- Fix this -->
-                    <label for="artefact_date_found">Date Found:</label>
-                    <input type="date" id="artefact_date_found" name="artefact_date_found" required>
-                
-                    <label for="artefact_broad_subperiod">Broad Subperiod:</label>
-                    <input type="text" id="artefact_broad_subperiod" name="artefact_broad_subperiod" maxlength="125" required>
-                
-                    <label for="artefact_date_earliest">Earliest Date:</label>
-                    <input type="number" id="artefact_date_earliest" name="artefact_date_earliest" required>
-                
-                    <label for="artefact_date_latest">Latest Date:</label>
-                    <input type="number" id="artefact_date_latest" name="artefact_date_latest" required>
-                
-                    <label for="artefact_classification">Classification:</label>
-                    <input type="text" id="artefact_classification" name="artefact_classification" maxlength="125" required>
-                
-                    <label for="artefact_desc">Description:</label>
-                    <textarea id="artefact_desc" name="artefact_desc" rows="4" maxlength="500" required></textarea>
-                
-                    <label for="artefact_weight">Weight (g):</label>
-                    <input type="number" step="0.01" id="artefact_weight" name="artefact_weight" required>
-                
-                    <label for="artefact_height">Height (mm):</label>
-                    <input type="number" step="0.01" id="artefact_height" name="artefact_height" required>
-                
-                    <label for="artefact_length">Length (mm):</label>
-                    <input type="number" step="0.01" id="artefact_length" name="artefact_length" required>
-                
-                    <label for="artefact_breadth">Breadth (mm):</label>
-                    <input type="number" step="0.01" id="artefact_breadth" name="artefact_breadth" required>
-                
-                    <label for="artefact_functinal_group">Functional Group:</label>
-                    <input type="text" id="artefact_functinal_group" name="artefact_functinal_group" maxlength="125" required>
-                
-                    <label for="artefact_material">Material:</label>
-                    <input type="text" id="artefact_material" name="artefact_material" maxlength="125" required>
-                
-                    <label for="artefact_decorative_style">Decorative Style:</label>
-                    <input type="text" id="artefact_decorative_style" name="artefact_decorative_style" maxlength="125" required>
-                
-                    <label for="artefact_location_id">Location ID:</label>
-                    <select id="artefact_location_id" style="width: 100%;">
-                        <!-- Options will be populated dynamically -->
-                    </select>
+                <form action="https://20.108.25134/nk-webservice/cataloguingHandler.php" method="POST">
 
-                
-                    <label for="artefact_dig_site_no">Dig Site No:</label>
-                    <input type="text" id="artefact_dig_site_no" name="artefact_dig_site_no" maxlength="8" required>
+                    <div class="cataloguing-details">
+                        
+                        <div class="artefact-dates">
+
+                            <div class="subheading">Dates:</div>
+
+                            <label for="artefact_date_found">Date Found:</label>
+                            <input type="date" id="artefact_date_found" name="artefact_date_found" required>
+                        
+                            <label for="artefact_broad_subperiod">Broad Subperiod:</label>
+                            <input type="text" id="artefact_broad_subperiod" name="artefact_broad_subperiod" maxlength="125" required>
+                        
+                            <label for="artefact_date_earliest">Earliest Date:</label>
+                            <input type="number" id="artefact_date_earliest" name="artefact_date_earliest" required>
+                        
+                            <label for="artefact_date_latest">Latest Date:</label>
+                            <input type="number" id="artefact_date_latest" name="artefact_date_latest" required>
+                        
+                        </div>
+
+                        <div class="dimentions">
+
+                            <div class="subheading">Dimentions:</div>
+
+                            <label for="artefact_weight">Weight (g):</label>
+                            <input type="number" step="0.01" id="artefact_weight" name="artefact_weight" required>
+                        
+                            <label for="artefact_height">Height (mm):</label>
+                            <input type="number" step="0.01" id="artefact_height" name="artefact_height" required>
+                        
+                            <label for="artefact_length">Length (mm):</label>
+                            <input type="number" step="0.01" id="artefact_length" name="artefact_length" required>
+                        
+                            <label for="artefact_breadth">Breadth (mm):</label>
+                            <input type="number" step="0.01" id="artefact_breadth" name="artefact_breadth" required>
+                    
+                        </div>
+
+                        <div class="artefact-specifications">
+
+                            <div class="subheading">Specifications:</div>
+
+                            <label for="artefact_classification">Classification:</label>
+                            <input type="text" id="artefact_classification" name="artefact_classification" maxlength="125" required>
+
+                        
+                            <label for="artefact_functinal_group">Functional Group:</label>
+                            <input type="text" id="artefact_functinal_group" name="artefact_functinal_group" maxlength="125" required>
+                        
+                            <label for="artefact_material">Material:</label>
+                            <input type="text" id="artefact_material" name="artefact_material" maxlength="125" required>
+                        
+                            <label for="artefact_decorative_style">Decorative Style:</label>
+                            <input type="text" id="artefact_decorative_style" name="artefact_decorative_style" maxlength="125" required>
+                        
+                            <label for="artefact_desc">Description:</label>
+                            <textarea id="artefact_desc" name="artefact_desc" rows="10" maxlength="500" resize="none" required></textarea>
+                        </div>
+
+                        <div class="artefact-ids">
+
+                            <div class="subheading">Identifications:</div>
+
+                            <label for="artefact_id">Artefact ID:</label>
+                            <select id="artefact_id" name="artefact_id" required>
+                                <option>Add New Artefact</option>
+                                <!-- Options will be populated dynamically -->
+                            </select>
+
+                            <label for="artefact_location_id">Location ID:</label>
+                            <select id="artefact_location_id" name="artefact_location_id" required>
+                                <option>Add New Location</option>
+                                <!-- Options will be populated dynamically -->
+                            </select>
+
+                            <label for="artefact_dig_site_no">Dig Site No:</label>
+                            <select id="artefact_dig_site_no" name="artefact_dig_site_no" required>
+                                <option>Add New Dig</option>
+                                <!-- Options will be populated dynamically -->
+                            </select>
+
+                        </div>
+
+                    </div>
 
                     <br>
 

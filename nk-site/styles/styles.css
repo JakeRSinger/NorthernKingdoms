@@ -6,9 +6,9 @@
 }
 
 :root {
-    --primary-colour: #e3b10d;
+    --primary-colour: #ddc67a;
     --primary-heading-colour: #000000;
-    --secondary-colour: #815a06;
+    --secondary-colour: #69563e;
     --secondary-heading-colour: #000000;
     --tertiary-colour: #0daae3;
     --white-text: #efefef;
@@ -66,6 +66,12 @@ body {
 
 .secondary-heading {
     color: var(--secondary-heading-colour);
+}
+
+.subheading {
+    color: var(--primary-heading-colour);
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
 /* Header */
@@ -172,13 +178,25 @@ label {
     justify-self: flex-start;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="datetime-local"], input[type="date"], textarea, select {
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea, select {
     width: 100%;
     padding: 1rem;
     margin-bottom: 1rem;
     font-size: 1.6rem;
     border: 1px solid var(--secondary-colour);
     border-radius: 5px;
+    max-height: 5rem;
+    max-width: 38rem;
+    min-width: 38rem;
+}
+
+input[type="date"], select {
+    max-height: 4rem;
+}
+
+textarea {
+    min-height: 8rem;
+    max-height: 8rem;
 }
 
 .login-heading {
@@ -204,4 +222,27 @@ button {
 button:hover {
     background-color: var(--secondary-colour);
     color: var(--white-text);
+}
+
+
+/* Cataloguing */
+.cataloguing-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+}
+
+.cataloguing-container {
+    margin: auto;
+    padding: 2rem;
+    background-color: var(--primary-colour);
+    border-radius: 8px;
+    border: 3px solid var(--tertiary-colour);
+    text-align: center;
+}
+
+.cataloguing-details > * {
+    border: 3px solid var(--tertiary-colour);
+    border-radius: 10px;
+    padding: 2rem;
 }
