@@ -1,10 +1,12 @@
 window.addEventListener('load', fetchLocations);
 window.addEventListener('load', fetchDigs);
+window.addEventListener('load', fetchArtefacts);
 
+// Location IDs
 async function fetchLocations() {
     try {
         // Fetch locations
-        const response = await fetch("https://20.108.25.134/nk-webservice/locations.php");
+        const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/locations.php");
         
         if (!response.ok) {
             throw new Error(`Error fetching locations: ${response.status}`);
@@ -36,11 +38,11 @@ function showLocations(locations) {
     }
 }
 
-
-async function fetchLocations() {
+// Dig Nos
+async function fetchDigs() {
     try {
         // Fetch digs
-        const response = await fetch("https://20.108.25.134/nk-webservice/digs.php");
+        const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/digs.php");
         
         if (!response.ok) {
             throw new Error(`Error fetching digs: ${response.status}`);
@@ -68,6 +70,42 @@ function showDigs(digs) {
             digOption.innerText = dig.dig_site_no;
             digOption.value = dig.dig_site_no;
             digOption.appendChild(digOption);
+        });
+    }
+}
+
+// Artefact IDs
+async function fetchArtefacts() {
+    try {
+        // Fetch digs
+        const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/artefacts.php");
+        
+        if (!response.ok) {
+            throw new Error(`Error fetching artefacts: ${response.status}`);
+        }
+
+        const artefacts = await response.json();
+
+        if (digs.Error) {
+            console.error("Error in response:", artefacts.Error);
+        } else {
+            showArtefacts(artefacts);
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
+    }
+}
+
+function showArtefacts(artefacts) {
+    const artefactSelect = document.getElementById("artefact_id");
+
+    if (artefactSelect) {
+
+        artefacts.forEach(artefact => {
+            const artefactOption = document.createElement('option');
+            artefactOption.innerText = artefact.artefact_id;
+            artefactOption.value = artefact.artefact_id;
+            artefactOption.appendChild(artefactOption);
         });
     }
 }

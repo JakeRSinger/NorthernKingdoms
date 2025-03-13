@@ -20,7 +20,7 @@
 .dark-mode {
     --primary-colour: #1c1c1c;
     --primary-heading-colour: #efefef;
-    --secondary-colour: ##222729;
+    --secondary-colour: #222729;
     --secondary-heading-colour: #e5e5e5;
 }
 
@@ -91,8 +91,8 @@ body {
 }
 
 
-/* Light Mode */
-.light-mode .white-img {
+/* Dark Mode */
+.dark-mode .white-img {
     filter: invert(100%);
 }
 
@@ -179,7 +179,7 @@ label {
 }
 
 input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea, select {
-    width: 100%;
+
     padding: 1rem;
     margin-bottom: 1rem;
     font-size: 1.6rem;
@@ -245,4 +245,26 @@ button:hover {
     border: 3px solid var(--tertiary-colour);
     border-radius: 10px;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+/* Media */
+@media screen and (max-width: 1870px) {
+
+    input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea, select {
+        width: 20rem;
+    }
+
+    .cataloguing-details {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cataloguing-details > * {
+        max-width: 50rem;
+    }
 }

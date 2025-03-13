@@ -26,25 +26,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id'] = $row['user_id'];
 
                 if ($row["user_id"] === 1) {
-                    header("Location: https://comp-server.uhi.ac.uk/~21011375/nk-site/register.html");
+                    header("Location: https://comp-server.uhi.ac.uk/~21011375/NorthernKingdoms/nk-site/register.html");
                     exit();
                 }
                 else {
                     // Redirect after setting session variables
-                    header("Location: https://comp-server.uhi.ac.uk/~21011375/nk-site/index.html");
+                    header("Location: https://comp-server.uhi.ac.uk/~21011375/NorthernKingdoms/nk-site/index.html");
                     exit();
                 }
 
             } else {
-                header("Location: https://comp-server.uhi.ac.uk/~21011375/nk-site/login.html");
+                header("Location: https://comp-server.uhi.ac.uk/~21011375/NorthernKingdoms/nk-site/login.html");
                 exit();
             }
         } else {
-            header("Location: https://comp-server.uhi.ac.uk/~21011375/nk-site/login.html");
+            header("Location: https://comp-server.uhi.ac.uk/~21011375/NorthernKingdoms/nk-site/login.html");
             exit();
         }
     } catch (PDOException $e) {
-        header("Location: https://comp-server.uhi.ac.uk/~21011375/nk-site/login.html");
+        header("Location: https://comp-server.uhi.ac.uk/~21011375/NorthernKingdoms/nk-site/login.html");
         exit();
     }
 }

@@ -17,3 +17,10 @@ Version 12032025 - 2
 - Need to add image upload.
 - Need to implement backend for cataloguing.
 
+Version 13032025 - 1
+- Added dark mode and touch controls.
+- Fixed login/register system
+- Added artefact ID option dynamic population.
+
+- Need to add image upload.
+- Need to implement backend for cataloguing.
