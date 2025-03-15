@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
-    <script src="/scripts/catalogueIDs.js"></script>
+    <script src="/scripts/FetchCatalogueDetails.js"></script>
 
     <script type="text/javascript" src="scripts/hammer.js"></script>
     <script type="text/javascript" src="scripts/modeAndNav.js"></script>
@@ -45,9 +45,9 @@
 
     <div class="section-secondary">
         <div class="cataloguing-container">
-            <h2 class="primary-heading">Add Artifact</h2>
+            <h2 class="primary-heading">Catalogue Artifact</h2>
             <div class="form-container">
-                <form action="https://20.108.25134/nk-webservice/cataloguingHandler.php" method="POST">
+                <form action="https://20.108.25134/NorthernKingdoms/nk-webservice/cataloguingHandler.php" method="POST">
 
                     <div class="cataloguing-details">
                         
@@ -140,7 +140,8 @@
                             <div class="cataloguing-pairing">
                                 <label for="artefact_id">Artefact ID:</label>
                                 <select id="artefact_id" name="artefact_id" required>
-                                    <option>Add New Artefact</option>
+                                    <option></option>
+                                    <option id="new_artefact" value="0">Add New Artefact</option>
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
@@ -148,7 +149,8 @@
                             <div class="cataloguing-pairing">
                                 <label for="artefact_location_id">Location ID:</label>
                                 <select id="artefact_location_id" name="artefact_location_id" required>
-                                    <option>Add New Location</option>
+                                    <option></option>
+                                    <option id="new_location" value="0">Add New Location</option>
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
@@ -156,7 +158,8 @@
                             <div class="cataloguing-pairing">
                                 <label for="artefact_dig_site_no">Dig Site No:</label>
                                 <select id="artefact_dig_site_no" name="artefact_dig_site_no" required>
-                                    <option>Add New Dig</option>
+                                    <option></option>
+                                    <option id="new_dig" value="0">Add New Dig</option>
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
@@ -171,6 +174,69 @@
                 </form>
             </div>
         </div>
+
+        <!-- Only shown to add a new dig site -->
+        <div class="popup-form dig-popup" id="dig-popup">
+
+            <h2 class="primary-heading">New Dig Site:</h2>
+
+            <div class="form-container">
+                <form id="location-form">
+                    <div class="cataloguing-pairing">
+                        <label for="new_dig_site_no">Site No:</label>
+                        <input type="text" id="new_dig_site_no" name="new_dig_site_no" maxlength="8" required>
+                    </div>
+
+                    <div class="cataloguing-pairing">
+                        <label for="dig_addr1">Address Line One:</label>
+                        <input type="text" id="dig_addr1" name="dig_addr1" maxlength="255" required>
+                    </div>
+
+                    <div class="cataloguing-pairing">
+                        <label for="dig_addr2">Address Line Two:</label>
+                        <input type="text" id="dig_addr2" name="dig_addr2" maxlength="255">
+                    </div>
+
+                    <div class="cataloguing-pairing">
+                        <label for="dig_town">Town:</label>
+                        <input type="text" id="dig_town" name="dig_town" maxlength="255" required>
+                    </div>
+
+                    <div class="cataloguing-pairing">
+                        <label for="dig_county">County:</label>
+                        <input type="text" id="dig_county" name="dig_county" maxlength="255" required>
+                    </div>
+
+                    <div class="cataloguing-pairing">
+                        <label for="dig_postcode">Postcode:</label>
+                        <input type="text" id="dig_postcode" name="dig_postcode" maxlength="8" required>
+                    </div>
+
+                    <button class="catalogue" id="location-submit">Add Location</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="popup-form location-popup" id="location-popup">
+            <h2 class="primary-heading">New Storage Location:</h2>
+
+            <div class="form-container">
+                <form id="location-form">
+
+                    <div class="cataloguing-pairing">
+                        <label for="artefact_dig_site_no">Dig Site No:</label>
+                        <select id="artefact_dig_site_no" name="artefact_dig_site_no" required>
+                            <option id="location_storage" value="Storage">Storage</option>
+                            <option id="location_display" value="Display">Display</option>
+                        </select>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+
     </div>
 
 </body>
