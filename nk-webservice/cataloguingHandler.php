@@ -2,12 +2,15 @@
 session_start(); // Start session
 require 'db.php'; // Include database connection
 
-header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+header("Content-Type: application/json");
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(["error" => "User not authenticated. Please log in."]);
+    header("Location: https://20.108.25.134/NorthernKingdoms/nk-site/login.html");
     exit;
 }
 

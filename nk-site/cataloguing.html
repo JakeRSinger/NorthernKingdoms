@@ -6,16 +6,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="styles/styles.css" rel="stylesheet">#
+
     
     <!-- Select2 for dropdowns -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
-    <script src="/scripts/FetchCatalogueDetails.js"></script>
+    <!-- Load jQuery first -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+    <!-- Load Select2 after jQuery -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+    <script type="text/javascript" src="scripts/fetchCatalogueDetails.js"></script>
 
     <script type="text/javascript" src="scripts/hammer.js"></script>
     <script type="text/javascript" src="scripts/modeAndNav.js"></script>
+    <script type="text/javascript" src="scripts/catalogueSubmit.js"></script>    
+
+    <link href="styles/styles.css" rel="stylesheet">
 
     <title>Cataloguing - The Northern Kingdoms Museum</title>
 </head>
@@ -128,7 +135,7 @@
 
                             <div class="cataloguing-pairing">
                                 <label for="artefact_desc">Description:</label>
-                                <textarea id="artefact_desc" name="artefact_desc" rows="10" maxlength="500" resize="none" required></textarea>
+                                <textarea id="artefact_desc" name="artefact_desc" rows="10" maxlength="1500" required></textarea>
                             </div>
                        
                         </div>
@@ -141,14 +148,14 @@
                                 <label for="artefact_id">Artefact ID:</label>
                                 <select id="artefact_id" name="artefact_id" required>
                                     <option></option>
-                                    <option id="new_artefact" value="0">Add New Artefact</option>
+                                    <option class="dropdown" id="new_artefact" value="0">Add New Artefact</option>
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
 
                             <div class="cataloguing-pairing">
                                 <label for="artefact_location_id">Location ID:</label>
-                                <select id="artefact_location_id" name="artefact_location_id" required>
+                                <select class="dropdown" id="artefact_location_id" name="artefact_location_id" required>
                                     <option></option>
                                     <option id="new_location" value="0">Add New Location</option>
                                     <!-- Options will be populated dynamically -->
@@ -157,7 +164,7 @@
 
                             <div class="cataloguing-pairing">
                                 <label for="artefact_dig_site_no">Dig Site No:</label>
-                                <select id="artefact_dig_site_no" name="artefact_dig_site_no" required>
+                                <select class="dropdown" id="artefact_dig_site_no" name="artefact_dig_site_no" required>
                                     <option></option>
                                     <option id="new_dig" value="0">Add New Dig</option>
                                     <!-- Options will be populated dynamically -->
@@ -176,25 +183,15 @@
         </div>
 
         <!-- Only shown to add a new dig site -->
-        <div class="popup-form dig-popup" id="dig-popup">
+        <div class="popup-form dig-popup cataloguing-container" id="dig-popup">
 
             <h2 class="primary-heading">New Dig Site:</h2>
 
-            <div class="form-container">
-                <form id="location-form">
+            <div class="form-container" onsubmit="return false">
+                <form id="dig-form">
                     <div class="cataloguing-pairing">
                         <label for="new_dig_site_no">Site No:</label>
                         <input type="text" id="new_dig_site_no" name="new_dig_site_no" maxlength="8" required>
-                    </div>
-
-                    <div class="cataloguing-pairing">
-                        <label for="dig_addr1">Address Line One:</label>
-                        <input type="text" id="dig_addr1" name="dig_addr1" maxlength="255" required>
-                    </div>
-
-                    <div class="cataloguing-pairing">
-                        <label for="dig_addr2">Address Line Two:</label>
-                        <input type="text" id="dig_addr2" name="dig_addr2" maxlength="255">
                     </div>
 
                     <div class="cataloguing-pairing">
@@ -207,29 +204,48 @@
                         <input type="text" id="dig_county" name="dig_county" maxlength="255" required>
                     </div>
 
-                    <div class="cataloguing-pairing">
-                        <label for="dig_postcode">Postcode:</label>
-                        <input type="text" id="dig_postcode" name="dig_postcode" maxlength="8" required>
-                    </div>
-
-                    <button class="catalogue" id="location-submit">Add Location</button>
+                    <button class="catalogue" id="dig-submit">Add Dig Site</button>
                 </form>
             </div>
         </div>
 
-        <div class="popup-form location-popup" id="location-popup">
+        <!-- Only shown to add a new storage location -->
+        <div class="popup-form location-popup cataloguing-container" id="location-popup">
             <h2 class="primary-heading">New Storage Location:</h2>
 
             <div class="form-container">
-                <form id="location-form">
+                <form id="location-form" onsubmit="return false">
 
                     <div class="cataloguing-pairing">
-                        <label for="artefact_dig_site_no">Dig Site No:</label>
-                        <select id="artefact_dig_site_no" name="artefact_dig_site_no" required>
+                        <label for="storage_type">Storage Type:</label>
+                        <select class="dropdown" id="storage_type" name="storage_type" required>
                             <option id="location_storage" value="Storage">Storage</option>
                             <option id="location_display" value="Display">Display</option>
                         </select>
                     </div>
+
+                    
+                    <button class="catalogue" id="location-submit">Add Storage Location</button>
+
+                </form>
+
+            </div>
+        </div>
+
+         <!-- Only shown to add a new artefact ID -->
+         <div class="popup-form artefact-popup cataloguing-container" id="artefact-popup">
+            <h2 class="primary-heading">New Artefact ID:</h2>
+
+            <div class="form-container">
+                <form id="artefact-form" onsubmit="return false">
+
+                    <div class="cataloguing-pairing">
+                        <label for="artefact_id">Artefact ID:</label>
+                        <input type="text" id="new_artefact_id" maxlength="125">
+                    </div>
+
+                    
+                    <button class="catalogue" id="artefact-submit">Add Artefact ID</button>
 
                 </form>
 

@@ -17,12 +17,15 @@
     --heading-font: "Epilogue", sans-serif;
 }
 
-.dark-mode {
+/* Dark Mode */
+.dark-mode, .dark-mode .select2-container--default .select2-selection--single, .dark-mode .popup-form .select2-container--default .select2-selection--single, .select2-results {
     --primary-colour: #1c1c1c;
     --primary-heading-colour: #efefef;
     --secondary-colour: #222729;
     --secondary-heading-colour: #e5e5e5;
 }
+
+
 
 html {
     font-size: 62.5%;
@@ -178,7 +181,7 @@ label {
     justify-self: flex-start;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea, select {
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea {
 
     padding: 1rem;
     margin-bottom: 1rem;
@@ -190,13 +193,14 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
     min-width: 38rem;
 }
 
-input[type="date"], select {
+input[type="date"] {
     max-height: 4rem;
 }
 
 textarea {
     min-height: 8rem;
     max-height: 8rem;
+    resize: none;
 }
 
 .login-heading {
@@ -204,6 +208,45 @@ textarea {
     padding-bottom: 2rem;
     font-size: 2.5rem;
 }
+
+
+/* Select2 */
+.select2-selection {
+    min-height: 4rem;
+    border-radius: 5px;
+}
+
+
+.select2-selection__arrow {
+    height: 3rem !important;
+}
+
+.popup-form .select2-container, .select2-container {
+    width: 100% !important;
+}
+
+.popup-form .select2-selection__rendered, .select2-selection__rendered {
+    line-height: 4rem !important;
+    width: 100% !important;
+    color: #000000 !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 4rem !important;
+    width: 100% !important;
+}
+
+.select2-results {
+    color: #000000 !important;
+}
+
+/* Higlighted (hover) result */
+.select2-results__option--highlighted {  
+    background-color: var(--tertiary-colour) !important;
+}
+
+
+
 
 button {
     font-family: var(--primary-font);
@@ -249,6 +292,53 @@ button:hover {
     flex-direction: column;
 }
 
+.cataloguing-pairing {
+    margin-bottom: 1rem;
+}
+
+.cataloguing-pairing .select2-container {
+    margin-bottom: 1rem !important;
+}
+
+.popup-form {
+    max-width: 45rem;
+    z-index: 9;
+
+    /* Centering */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dig-popup {
+    display: none;
+}
+
+.location-popup {
+    display: none;
+}
+
+.artefact-popup {
+    display: none;
+}
+
+.popup-form > .cataloguing-pairing  {
+    border: 3px solid var(--tertiary-colour);
+    border-radius: 10px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.select2-results {
+    color: #000000 !important;
+}
+
+/* Higlighted (hover) result */
+.select2-results__option--highlighted {  
+    background-color: var(--tertiary-colour) !important;
+}
 
 
 

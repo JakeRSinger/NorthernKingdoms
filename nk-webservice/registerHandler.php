@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([':email' => $admin_email]);
         $admin = $stmt->fetch();
 
-        // Check if admin exists and password is correct
+        // Check if admin exists and password is correct    
         if ($admin && password_verify($admin_password, $admin['user_password'])) {
             
             // Prepare the Insert statement
@@ -33,11 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
 
             // Redirect to login page after successful registration
-            header("Location: https://comp-server.uhi.ac.uk/~21011375/NorthernKingdoms/nk-site/login.html");
+            header("Location: https://20.108.25.134/NorthernKingdoms/nk-site/login.html");
             exit();
         } else {
             // Redirect to registration page if admin authentication fails
-            header("Location: https://comp-server.uhi.ac.uk/~21011375/NorthernKingdoms/nk-site/register.html");
+            header("Location: https://20.108.25.134/NorthernKingdoms/nk-site/register.html");
             exit();
         }
     } catch (PDOException $e) {

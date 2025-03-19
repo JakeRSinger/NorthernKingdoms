@@ -32,3 +32,9 @@
     - (Can now edit artefacts.)
 
 - Need to add image upload.
+
+# Version 19032025 - 1
+- Fixed popups and dropdowns
+
+- Add image upload
+- Test cataloguing backend

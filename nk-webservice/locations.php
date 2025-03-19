@@ -7,7 +7,7 @@ header("Content-Type: application/json");
 require 'db.php';
 
 try {
-    $stmt = $pdo->query("SELECT location_id FROM m_location");
+    $stmt = $pdo->query("SELECT location_id, location_type FROM m_location");
     $locations = $stmt->fetchAll();
     echo json_encode($locations);
 } catch (PDOException $e) {
