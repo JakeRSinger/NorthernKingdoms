@@ -22,8 +22,12 @@ if (!isset($_SESSION['user_id'])) {
 try 
 {
     // Read POST data
-    $data = json_decode(file_get_contents("php://input"), true);
-    
+    $jsonData = file_get_contents("php://input");
+    $data = json_decode($jsonData, true);
+
+    // Debug: Log received data
+    error_log("Received JSON: " . json_encode($data));
+
     if (!$data || !isset($data['digSiteNo']) || !isset($data['digTown']) || !isset($data['digCounty'])) {
         http_response_code(400);
         echo json_encode(["message" => "Invalid request. Dig Details Required."]);
@@ -34,17 +38,19 @@ try
     $digTown = $data['digTown'];
     $digCounty = $data['digCounty'];
 
-    // Insert to database
-    $stmt =$pdo->prepare("INSERT INTO m_dig (dig_site_no, dig_town, dig_county) 
-                                VALUES (:digSiteNo, :digTown, :digCounty);");
-    $stmt->execute([':digSiteNo' => $digSiteNo,
-                            ':digTown' => $digTown,
-                            ':digCounty' => $digCounty]);
-    
-    echo json_encode(["message" => "Dig site added."]);
+    // Insert into database
+    $stmt = $pdo->prepare("INSERT INTO m_dig (dig_site_no, dig_town, dig_county) 
+                           VALUES (:digSiteNo, :digTown, :digCounty)");
+    $stmt->execute([
+        ':digSiteNo' => $digSiteNo,
+        ':digTown' => $digTown,
+        ':digCounty' => $digCounty
+    ]);
+
+    echo json_encode(["message" => "Dig site added successfully."]);
 }
 catch (Exception $e)
 {
     http_response_code(500);
-    echo json_encode(["message" => "Failed to add dig site."]);
+    echo json_encode(["message" => "Failed to add dig site.", "error" => $e->getMessage()]);
 }

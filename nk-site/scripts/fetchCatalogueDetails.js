@@ -185,48 +185,50 @@ document.addEventListener("click", function(event) {
 
 // Dig Submit
 async function digSubmit() {
-    let dig_site_no = document.getElementById("new_dig_site_no").value;
-    let dig_town = document.getElementById("dig_town").value;
-    let dig_county = document.getElementById("dig_county").value;
+    let dig_site_no = document.getElementById("new_dig_site_no").value.trim();
+    let dig_town = document.getElementById("dig_town").value.trim();
+    let dig_county = document.getElementById("dig_county").value.trim();
 
-    if (dig_site_no === null || dig_town === null || dig_county === null)
-    {
+    // Check for empty values
+    if (!dig_site_no || !dig_town || !dig_county) {
         alert("Please fill in all fields.");
         return;
     }
-    else 
-    {
-        try {
-            const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/addDig.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ digSiteNO: dig_site_no, digTown: dig_town, digCounty: dig_county}),
-            });
 
-            if (response.status === 401) {
-                // Redirect to login if unauthorized
-                window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
-                return;
-            }
+    try {
+        const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/addDig.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ 
+                digSiteNo: dig_site_no, 
+                digTown: dig_town, 
+                digCounty: dig_county
+            }),
+        });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log("Response Data:", data);
-
-            closeAllPopups();
-            fetchDigs();
-        }
-        catch (error) {
-            console.error("Error", error);
+        if (response.status === 401) {
+            window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
+            return;
         }
 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Response Data:", data);
+
+        closeAllPopups();
+        fetchDigs();
     }
-}   
+    catch (error) {
+        console.error("Error submitting dig site:", error);
+        alert("An error occurred while submitting the dig site.");
+    }
+}
+
 
 
 // Location Submit
@@ -284,6 +286,8 @@ function artefactSubmit() {
             const addNewID = new Option(artefact_id + " - (NEW)", artefact_id, false, true);
             artefactSelect.append(addNewID).trigger('change'); // Append and update Select2
             console.log(`Artefact ID ${artefact_id} added.`);
+
+            closeAllPopups();
         } else {
             alert("Artefact ID already exists.");
         }
