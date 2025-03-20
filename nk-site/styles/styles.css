@@ -181,8 +181,8 @@ label {
     justify-self: flex-start;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea {
-
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], input[type="file"], textarea {
+    background-color: white;
     padding: 1rem;
     margin-bottom: 1rem;
     font-size: 1.6rem;

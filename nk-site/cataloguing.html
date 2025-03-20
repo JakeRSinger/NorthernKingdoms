@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     <script type="text/javascript" src="scripts/fetchCatalogueDetails.js"></script>
-
+    <script type="text/javascript" src="scripts/imagePreview.js"></script>
     <script type="text/javascript" src="scripts/hammer.js"></script>
     <script type="text/javascript" src="scripts/modeAndNav.js"></script>   
 
@@ -53,7 +53,7 @@
         <div class="cataloguing-container">
             <h2 class="primary-heading">Catalogue Artifact</h2>
             <div class="form-container">
-                <form action="https://20.108.25134/NorthernKingdoms/nk-webservice/cataloguingHandler.php" method="POST">
+                <form id="catalogue-form" action="https://20.108.25.134/NorthernKingdoms/nk-webservice/cataloguingHandler.php" enctype="multipart/form-data" method="POST">
 
                     <div class="cataloguing-details">
                         
@@ -168,6 +168,17 @@
                                     <option id="new_dig" value="0">Add New Dig</option>
                                     <!-- Options will be populated dynamically -->
                                 </select>
+                            </div>
+
+                            <div class="cataloguing-pairing">
+                                <label for="artefact_image">Upload Image:</label>
+                                <input type="file" id="artefact_image" class="upload-button" name="artefact_image" accept="image/*" required>
+                            </div>
+
+                            <!-- Image Preview -->
+                            <div id="image-preview-container" style="display: none;">
+                                <p>Preview:</p>
+                                <img id="image-preview" src="" alt="Image Preview">
                             </div>
 
                         </div>
