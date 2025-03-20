@@ -7,7 +7,7 @@ header("Content-Type: application/json");
 require 'db.php';
 
 try {
-    $stmt = $pdo->query("SELECT * FROM m_artefacts");
+    $stmt = $pdo->query("SELECT * FROM m_artefact");
     $artefacts = $stmt->fetchAll();
     echo json_encode($artefacts);
 } catch (PDOException $e) {

@@ -113,6 +113,7 @@ async function fetchDigs() {
         if (digs.Error) {
             console.error("Error in response:", digs.Error);
         } else {
+            console.log(digs);
             showDigs(digs);
         }
     } catch (error) {
