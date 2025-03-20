@@ -24,8 +24,9 @@ try
     // Read POST data
     $data = json_decode(file_get_contents("php://input"), true);
     
-    if (!isset($data['digSiteNo']) || !isset($data['digTown']) || !isset($data['digCounty'])) {
-        echo json_encode(["message" => "Invalid request."]);
+    if (!$data || !isset($data['digSiteNo']) || !isset($data['digTown']) || !isset($data['digCounty'])) {
+        http_response_code(400);
+        echo json_encode(["message" => "Invalid request. Dig Details Required."]);
         exit;
     }
 
@@ -35,10 +36,10 @@ try
 
     // Insert to database
     $stmt =$pdo->prepare("INSERT INTO m_dig (dig_site_no, dig_town, dig_county) 
-                                VALUES :digSiteNo, :digTown, :digCounty;");
+                                VALUES (:digSiteNo, :digTown, :digCounty);");
     $stmt->execute([':digSiteNo' => $digSiteNo,
-                    ':digTown' => $digTown,
-                    ':digCounty' => $digCounty]);
+                            ':digTown' => $digTown,
+                            ':digCounty' => $digCounty]);
     
     echo json_encode(["message" => "Dig site added."]);
 }

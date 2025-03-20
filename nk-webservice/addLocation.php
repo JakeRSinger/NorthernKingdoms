@@ -21,26 +21,27 @@ if (!isset($_SESSION['user_id'])) {
 
 try 
 {
-    // Read POST data
-    $data = json_decode(file_get_contents("php://input"), true);
-    
-    if (!isset($data['locationType'])) {
-        echo json_encode(["message" => "Invalid request."]);
+    // Read and decode JSON data
+    $jsonData = file_get_contents("php://input");
+    $data = json_decode($jsonData, true);
+
+    if (!$data || !isset($data['locationType'])) {
+        http_response_code(400);
+        echo json_encode(["message" => "Invalid request. LocationType is required."]);
         exit;
     }
 
     $locationType = $data['locationType'];
 
-
-    // Insert to database
-    $stmt =$pdo->prepare("INSERT INTO m_location (location_type, location_last_edited) 
-                                VALUES :locationType, NOW();");
+    // Insert into database
+    $stmt = $pdo->prepare("INSERT INTO m_location (location_type, location_last_edited) 
+                           VALUES (:locationType, NOW())");
     $stmt->execute([':locationType' => $locationType]);
-    
-    echo json_encode(["message" => "Location added."]);
+
+    echo json_encode(["message" => "Location added successfully."]);
 }
 catch (Exception $e)
 {
     http_response_code(500);
-    echo json_encode(["message" => "Failed to add location."]);
+    echo json_encode(["message" => "Failed to add location.", "error" => $e->getMessage()]);
 }
