@@ -197,7 +197,7 @@ async function digSubmit() {
     else 
     {
         try {
-            const response = await fetch("https://20.108.25.134/NorthernKindoms/nk-webservice/addDig.php", {
+            const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/addDig.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -242,7 +242,7 @@ async function locationSubmit() {
     else 
     {
         try {
-            const response = await fetch("https://20.108.25.134/NorthernKindoms/nk-webservice/addLocation.php", {
+            const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/addLocation.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
