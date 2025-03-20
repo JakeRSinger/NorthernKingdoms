@@ -185,9 +185,9 @@ document.addEventListener("click", function(event) {
 
 // Dig Submit
 async function digSubmit() {
-    const dig_site_no = document.getElementById("new_dig_site_no").value;
-    const dig_town = document.getElementById("dig_town").value;
-    const dig_county = document.getElementById("dig_county").value;
+    let dig_site_no = document.getElementById("new_dig_site_no").value;
+    let dig_town = document.getElementById("dig_town").value;
+    let dig_county = document.getElementById("dig_county").value;
 
     if (dig_site_no === null || dig_town === null || dig_county === null)
     {
@@ -231,7 +231,7 @@ async function digSubmit() {
 
 // Location Submit
 async function locationSubmit() {
-    const location_type = $("#location_type").val();
+    let location_type = $("#location_type").val();
     console.log(location_type);
 
     if (location_type === null)
