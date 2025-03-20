@@ -4,265 +4,179 @@ window.addEventListener('load', () => {
     fetchArtefacts();
 });
 
-
 $(document).ready(function() {
+    // Initialize select2 for dropdowns
     $('#artefact_id, #artefact_location_id, #artefact_dig_site_no').select2();
-    console.log("Select2 initialised!"); // Debugging message
-});
+    console.log("Select2 initialized!");
 
-$(document).ready(function() {
     $('#storage_type').select2({
-        dropdownParent: $('#location-popup') // Ensure it opens inside the popup
+        dropdownParent: $('#location-popup') // Ensures it opens inside the popup
     });
-});
 
-$(document).ready(function() {
+    // Attach event listeners to buttons
     $('#dig-submit').click(digSubmit);
-    console.log("Dig Submit Initialised!");
-
     $('#location-submit').click(locationSubmit);
-    console.log("Location Submit Initialised!");
-
     $('#artefact-submit').click(artefactSubmit);
-    console.log("Artefact Submit Initialised!");
 });
 
-
-// Event listeners for dropdown selection
-$(document).on('select2:select', '#artefact_id', function(){
-    console.log("Artefact changed.");
-
-    if ($('#artefact_id').val() === "0")
-    {
+// Event Listeners for dropdown selection
+$(document).on('select2:select', '#artefact_id', function() {
+    if ($('#artefact_id').val() === "add_new") {
         showArtefactPopup();
-    }
-    else
-    {
+    } else {
         fetchArtefacts();
     }
 });
 
-$(document).on('select2:select', '#artefact_location_id', function(){
-    console.log("Location changed.");
-    showLocationPopup();
+$(document).on('select2:select', '#artefact_location_id', function() {
+    if ($('#artefact_location_id').val() === "0") {
+        showLocationPopup();
+    }
 });
 
-$(document).on('select2:select', '#artefact_dig_site_no', function(){
-    console.log("Dig site changed.");
-    showDigPopup();
+$(document).on('select2:select', '#artefact_dig_site_no', function() {
+    if ($('#artefact_dig_site_no').val() === "0") {
+        showDigPopup();
+    }
 });
 
-
-// Fetch Locations
+// Fetch Locations from API
 async function fetchLocations() {
     try {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/locations.php");
-
-        if (!response.ok) {
-            throw new Error(`Error fetching locations: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`Error fetching locations: ${response.status}`);
 
         const locations = await response.json();
+        if (!locations || locations.Error) throw new Error(locations.Error || "Invalid response data");
 
-        if (locations.Error) {
-            console.error("Error in response:", locations.Error);
-        } else {
-            showLocations(locations);
-        }
+        showLocations(locations);
     } catch (error) {
-        console.error("Fetch error:", error);
+        console.error("Fetch error:", error.message);
     }
 }
 
+// Populate Locations Dropdown
 function showLocations(locations) {
-    const locationSelect = $("#artefact_location_id");  // jQuery selector for select2
+    const locationSelect = $("#artefact_location_id").empty();
+    locationSelect.append(new Option("", "", true, true));
+    locationSelect.append(new Option("Add New Location", "0", false, false));
 
-    if (locationSelect.length) {
-        locationSelect.empty();  // Clear existing options
+    locations.forEach(location => {
+        locationSelect.append(new Option(`${location.location_id} - ${location.location_type}`, location.location_id));
+    });
 
-        // Add a blank placeholder option
-        const placeholderOption = new Option("", "", true, true);
-        locationSelect.append(placeholderOption);
-
-        // Add the "Add New Location" option
-        const addNewOption = new Option("Add New Location", "0", false, false);
-        locationSelect.append(addNewOption);
-
-        // Add location options
-        locations.forEach(location => {
-            const locationOption = new Option(location.location_id + " - " + location.location_type, location.location_id);
-            locationSelect.append(locationOption);
-        });
-
-        locationSelect.trigger('change');  // Trigger select2 to update the dropdown
-    }
+    locationSelect.trigger('change');
 }
 
-
-// Fetch Digs
+// Fetch Digs from API
 async function fetchDigs() {
     try {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/digs.php");
-
-        if (!response.ok) {
-            throw new Error(`Error fetching digs: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`Error fetching digs: ${response.status}`);
 
         const digs = await response.json();
+        if (!digs || digs.Error) throw new Error(digs.Error || "Invalid response data");
 
-        if (digs.Error) {
-            console.error("Error in response:", digs.Error);
-        } else {
-            console.log(digs);
-            showDigs(digs);
-        }
+        showDigs(digs);
     } catch (error) {
-        console.error("Fetch error:", error);
+        console.error("Fetch error:", error.message);
     }
 }
 
+// Populate Digs Dropdown
 function showDigs(digs) {
-    const digSelect = $("#dig_site_no");  // jQuery selector for select2
+    const digSelect = $("#artefact_dig_site_no").empty();
+    digSelect.append(new Option("", "", true, true));
+    digSelect.append(new Option("Add New Dig", "0", false, false));
 
-    if (digSelect.length) {
-        digSelect.empty();  // Clear existing options
+    digs.forEach(dig => {
+        digSelect.append(new Option(dig.dig_site_no, dig.dig_site_no));
+    });
 
-        // Add a blank placeholder option
-        const placeholderOption = new Option("", "", true, true);
-        digSelect.append(placeholderOption);
-
-        // Add the "Add New Dig" option
-        const addNewOption = new Option("Add New Dig", "0", false, false);
-        digSelect.append(addNewOption);
-
-        // Add dig options
-        digs.forEach(dig => {
-            const digOption = new Option(dig.dig_site_no, dig.dig_site_no);
-            digSelect.append(digOption);
-        });
-
-        digSelect.trigger('change');  // Trigger select2 to update the dropdown
-    }
+    digSelect.trigger('change');
 }
 
-
-// Fetch Artefacts
+// Fetch Artefacts from API
 var artefactsFetched = false;
-
 async function fetchArtefacts() {
     try {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/artefacts.php");
-
-        if (!response.ok) {
-            throw new Error(`Error fetching artefacts: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`Error fetching artefacts: ${response.status}`);
 
         const artefacts = await response.json();
+        if (!artefacts || artefacts.Error) throw new Error(artefacts.Error || "Invalid response data");
 
-        if (artefacts.Error) {
-            console.error("Error in response:", artefacts.Error);
-        } else if (!artefactsFetched) {
+        if (!artefactsFetched) {
             artefactsFetched = true;
             showArtefacts(artefacts);
         } else {
             autofillArtefactDetails(artefacts);
         }
     } catch (error) {
-        console.error("Fetch error:", error);
+        console.error("Fetch error:", error.message);
     }
 }
 
+// Populate Artefacts Dropdown
 function showArtefacts(artefacts) {
-    const artefactSelect = $("#artefact_id");  // jQuery selector for select2
+    const artefactSelect = $("#artefact_id").empty();
+    artefactSelect.append(new Option("", "", true, true));
+    artefactSelect.append(new Option("Add New Artefact", "add_new", false, false));
 
-    if (artefactSelect.length) {
-        artefactSelect.empty();  // Clear existing options
+    artefacts.forEach(artefact => {
+        artefactSelect.append(new Option(artefact.artefact_id, artefact.artefact_id));
+    });
 
-        // Add a blank placeholder
-        const placeholderOption = new Option("", "", true, true);
-        artefactSelect.append(placeholderOption);
-
-        // Add the "Add New Artefact" option
-        const addNewOption = new Option("Add New Artefact", "add_new", false, false);
-        artefactSelect.append(addNewOption);
-
-        // Add artefact options
-        artefacts.forEach(artefact => {
-            const artefactOption = new Option(artefact.artefact_id, artefact.artefact_id);
-            artefactSelect.append(artefactOption);
-        });
-
-        artefactSelect.trigger('change');  // Trigger select2 to update the dropdown
-    }
+    artefactSelect.trigger('change');
 }
 
-
-
-
-// Autofill details when an artefact is selected
+// Autofill Artefact Details
 function autofillArtefactDetails(artefacts) {
-    const selectedArtefactID = document.getElementById("artefact_id").value;
+    const selectedArtefactID = $("#artefact_id").val();
     const artefact = artefacts.find(a => a.artefact_id == selectedArtefactID);
 
-    if (!artefact) return; // Exit if artefact not found
+    if (!artefact) return;
 
-    document.getElementById("artefact_date_found").value = artefact.artefact_date_found || "";
-    document.getElementById("artefact_broad_subperiod").value = artefact.artefact_broad_subperiod || "";
-    document.getElementById("artefact_date_earliest").value = artefact.artefact_date_earliest || "";
-    document.getElementById("artefact_date_latest").value = artefact.artefact_date_latest || "";
-    document.getElementById("artefact_weight").value = artefact.artefact_weight || "";
-    document.getElementById("artefact_height").value = artefact.artefact_height || "";
-    document.getElementById("artefact_length").value = artefact.artefact_length || "";
-    document.getElementById("artefact_breadth").value = artefact.artefact_breadth || "";
-    document.getElementById("artefact_classification").value = artefact.artefact_classification || "";
-    document.getElementById("artefact_functional_group").value = artefact.artefact_functional_group || "";
-    document.getElementById("artefact_material").value = artefact.artefact_material || "";
-    document.getElementById("artefact_decorative_style").value = artefact.artefact_decorative_style || "";
-    document.getElementById("artefact_desc").value = artefact.artefact_desc || "";
+    $("#artefact_date_found").val(artefact.artefact_date_found || "");
+    $("#artefact_broad_subperiod").val(artefact.artefact_broad_subperiod || "");
+    $("#artefact_date_earliest").val(artefact.artefact_date_earliest || "");
+    $("#artefact_date_latest").val(artefact.artefact_date_latest || "");
+    $("#artefact_weight").val(artefact.artefact_weight || "");
+    $("#artefact_height").val(artefact.artefact_height || "");
+    $("#artefact_length").val(artefact.artefact_length || "");
+    $("#artefact_breadth").val(artefact.artefact_breadth || "");
+    $("#artefact_classification").val(artefact.artefact_classification || "");
+    $("#artefact_functional_group").val(artefact.artefact_functional_group || "");
+    $("#artefact_material").val(artefact.artefact_material || "");
+    $("#artefact_decorative_style").val(artefact.artefact_decorative_style || "");
+    $("#artefact_desc").val(artefact.artefact_desc || "");
 
-    $('#artefact_location_id').val() = artefact.artefact_location_id || "";
-    $('#artefact_dig_site_no').val() = artefact.artefact_dig_site_no || "";
+    $('#artefact_location_id').val(artefact.artefact_location_id || "").trigger('change');
+    $('#artefact_dig_site_no').val(artefact.artefact_dig_site_no || "").trigger('change');
 }
 
-
-
-// Popups
-// Functions to show popups
+// Popup Handling
 function showLocationPopup() {
-    let locationInput = $("#artefact_location_id");
-    if (locationInput && locationInput.val() === "0") {
-        closeAllPopups();
-        document.getElementById("location-popup").style.display = "block";
-    }
+    closeAllPopups();
+    $("#location-popup").show();
 }
 
 function showDigPopup() {
-    let digSiteInput = $("#artefact_dig_site_no");
-    if (digSiteInput && digSiteInput.val() === "0") {
-        closeAllPopups();
-        document.getElementById("dig-popup").style.display = "block";
-    }
+    closeAllPopups();
+    $("#dig-popup").show();
 }
 
 function showArtefactPopup() {
-    let artefactInput = $("#artefact_id");
-    if (artefactInput && artefactInput.val() === "0") {
-        closeAllPopups();
-        document.getElementById("artefact-popup").style.display = "block";
-    }
+    closeAllPopups();
+    $("#artefact-popup").show();
 }
 
-// Function to close all popups
 function closeAllPopups() {
-    document.querySelectorAll(".popup-form").forEach(popup => {
-        popup.style.display = "none";
-    });
+    $(".popup-form").hide();
 }
 
-// Close popups when clicking outside
 document.addEventListener("click", function(event) {
-    let isPopup = event.target.closest(".popup-form");
-    if (!isPopup) {
+    if (!event.target.closest(".popup-form")) {
         closeAllPopups();
     }
 });
