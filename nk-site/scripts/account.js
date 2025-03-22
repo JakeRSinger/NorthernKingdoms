@@ -4,8 +4,8 @@ window.addEventListener('load', checkLoggedIn);
 
 function checkLoggedIn() {
     // Load login state from localStorage
-    loggedIn = JSON.parse(SessionStorage.getItem("loggedIn")) || false;
-    
+    loggedIn = JSON.parse(sessionStorage.getItem("loggedIn")) || false;
+
     if (loggedIn) logoutLink();
 }
 
