@@ -115,8 +115,8 @@ try {
                 artefact_decorative_style, artefact_location_last_changed, artefact_location_id, 
                 artefact_dig_site_no, artefact_edited_by
             ) VALUES (
-                :date_found, :broad_subperiod, :date_earliest, :date_latest, 
-                :classification, :description, :weight, :height, 
+                :artefact_id, :date_found, :broad_subperiod, :date_earliest, 
+                :date_latest, :classification, :description, :weight, :height, 
                 :length, :breadth, :functional_group, :material, 
                 :decorative_style, NOW(), :location_id, 
                 :dig_site_no, :edited_by
