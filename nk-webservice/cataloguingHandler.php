@@ -14,12 +14,21 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Check if data is recieved
+if (empty($_POST)) {
+    echo json_encode(["error" => "No POST data received. Make sure your form is sending data correctly."]);
+    exit;
+}
+
+
+echo json_encode(["debug" => "Received Data", "data" => $_POST]);
+
 // Get logged-in user ID from session
 $artefact_edited_by = $_SESSION['user_id'];
 
 try {
     // Collect form data
-    $artefact_id = $_POST['artefact_id'] ?? null; // Artefact ID (if updating)
+    $artefact_id = $_POST['artefact_id'] ?? null;
     $artefact_date_found = $_POST['artefact_date_found'] ?? null;
     $artefact_broad_subperiod = $_POST['artefact_broad_subperiod'] ?? null;
     $artefact_date_earliest = $_POST['artefact_date_earliest'] ?? null;
@@ -37,7 +46,9 @@ try {
     $artefact_dig_site_no = $_POST['artefact_dig_site_no'] ?? null;
 
     // Validate required fields
-    if (!$artefact_date_found || !$artefact_classification || !$artefact_desc || !$artefact_location_id || !$artefact_dig_site_no) {
+    if (!$artefact_id || !$artefact_date_found || !$artefact_broad_subperiod || !$artefact_date_earliest || !$artefact_date_latest || 
+        !$artefact_classification || !$artefact_desc || !$artefact_weight || !$artefact_height || !$artefact_length || !$artefact_breadth || 
+        !$artefact_functional_group || !$artefact_material || !$artefact_decorative_style || !$artefact_location_id || !$artefact_dig_site_no) {
         echo json_encode(["error" => "Missing required fields."]);
         exit;
     }
