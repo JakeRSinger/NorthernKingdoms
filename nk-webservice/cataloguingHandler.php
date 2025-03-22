@@ -53,8 +53,13 @@ try {
         exit;
     }
 
+    $checkStmt = $pdo->prepare("SELECT COUNT(*) FROM m_artefact WHERE artefact_id = :artefact_id");
+    $checkStmt->execute([':artefact_id' => $artefact_id]);
+    $count = $checkStmt->fetchColumn();
+
+
     // Check if the artefact already exists
-    if ($artefact_id && $artefact_id != "0") {
+    if ($count > 0) {
         // Update existing artefact
         $stmt = $pdo->prepare("
             UPDATE m_artefact SET
@@ -140,42 +145,42 @@ try {
         echo json_encode(["success" => "Artefact successfully catalogued."]);
     }
 
-        // **IMAGE UPLOAD HANDLING**
-        $imagePath = null;
-        if (isset($_FILES['artefact_image']) && $_FILES['artefact_image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = "/var/www/html/NorthernKingdoms/uploads/" . $artefact_dig_site_no . "/";
-    
-            // Create folder if it does not exist
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
-    
-            $imageName = $_FILES['artefact_image']['name'];
-            $imageExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
-    
-            // Validate file type
-            $allowedExtensions = ['jpg', 'jpeg', 'png'];
-            if (!in_array($imageExtension, $allowedExtensions)) {
-                echo json_encode(["error" => "Invalid file type. Only JPG, JPEG, PNG allowed."]);
-                exit;
-            }
-    
-            // Generate unique filename using artefact ID + timestamp
-            $uniqueFilename = $artefact_id . "-" . time() . "." . $imageExtension;
-            $imagePath = $uploadDir . $uniqueFilename;
-    
-            // Move file to uploads directory
-            if (!move_uploaded_file($_FILES['artefact_image']['tmp_name'], $imagePath)) {
-                echo json_encode(["error" => "Failed to upload image."]);
-                exit;
-            }
+    // **IMAGE UPLOAD HANDLING**
+    $imagePath = null;
+    if (isset($_FILES['artefact_image']) && $_FILES['artefact_image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = "/var/www/html/NorthernKingdoms/uploads/" . $artefact_dig_site_no . "/";
+
+        // Create folder if it does not exist
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
         }
-    
-        // **UPDATE DATABASE WITH IMAGE PATH**
-        if ($imagePath) {
-            $stmt = $pdo->prepare("UPDATE m_artefact SET artefact_image = :image_path WHERE artefact_id = :artefact_id");
-            $stmt->execute([':image_path' => $imagePath, ':artefact_id' => $artefact_id]);
+
+        $imageName = $_FILES['artefact_image']['name'];
+        $imageExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
+
+        // Validate file type
+        $allowedExtensions = ['jpg', 'jpeg', 'png'];
+        if (!in_array($imageExtension, $allowedExtensions)) {
+            echo json_encode(["error" => "Invalid file type. Only JPG, JPEG, PNG allowed."]);
+            exit;
         }
+
+        // Generate unique filename using artefact ID + timestamp
+        $uniqueFilename = $artefact_id . "-" . time() . "." . $imageExtension;
+        $imagePath = $uploadDir . $uniqueFilename;
+
+        // Move file to uploads directory
+        if (!move_uploaded_file($_FILES['artefact_image']['tmp_name'], $imagePath)) {
+            echo json_encode(["error" => "Failed to upload image."]);
+            exit;
+        }
+    }
+
+    // **UPDATE DATABASE WITH IMAGE PATH**
+    if ($imagePath) {
+        $stmt = $pdo->prepare("UPDATE m_artefact SET artefact_image = :image_path WHERE artefact_id = :artefact_id");
+        $stmt->execute([':image_path' => $imagePath, ':artefact_id' => $artefact_id]);
+    }
 
 
 } catch (PDOException $e) {
