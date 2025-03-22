@@ -109,7 +109,7 @@ try {
         // Insert new artefact
         $stmt = $pdo->prepare("
             INSERT INTO m_artefact (
-                artefact_date_found, artefact_broad_subperiod, artefact_date_earliest, artefact_date_latest, 
+                artefatc_id, artefact_date_found, artefact_broad_subperiod, artefact_date_earliest, artefact_date_latest, 
                 artefact_classification, artefact_desc, artefact_weight, artefact_height, 
                 artefact_length, artefact_breadth, artefact_functional_group, artefact_material, 
                 artefact_decorative_style, artefact_location_last_changed, artefact_location_id, 
@@ -124,6 +124,7 @@ try {
         ");
 
         $stmt->execute([
+            ':artefact_id' => $artefact_id,
             ':date_found' => $artefact_date_found,
             ':broad_subperiod' => $artefact_broad_subperiod,
             ':date_earliest' => $artefact_date_earliest,
