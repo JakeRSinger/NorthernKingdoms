@@ -1,20 +1,34 @@
 let loggedIn = false;
 
-window.addEventListener('load', checkLoggedIn);
+window.addEventListener("load", function () {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("loggedIn") === "true") {
+        sessionStorage.setItem("loggedIn", "true");
+    }
+
+    checkLoggedIn();
+});
+
 
 function checkLoggedIn() {
-    // Load login state from localStorage
-    loggedIn = JSON.parse(sessionStorage.getItem("loggedIn")) || false;
+    // Ensure boolean value for loggedIn state
+    loggedIn = sessionStorage.getItem("loggedIn") === "true";
 
-    if (loggedIn) logoutLink();
+    if (loggedIn) {
+        logoutLink();
+    }
 }
 
 function logoutLink() {
     const loginLink = document.getElementById("login-link");
 
-    // Change link if logged in
     if (loginLink && loggedIn) {
         loginLink.href = "https://20.128.25.134/NorthernKingdoms/nk-webservice/logout.php";
-        loginLink.textContent = `Logout`;
+        loginLink.textContent = "Logout";
+
+        // Add logout event to clear sessionStorage
+        loginLink.addEventListener("click", function () {
+            sessionStorage.removeItem("loggedIn");
+        });
     }
 }
