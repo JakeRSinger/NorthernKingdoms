@@ -183,6 +183,7 @@ try {
         $stmt->execute([':image_path' => $imagePath, ':artefact_id' => $artefact_id]);
     }
 
+    header("Location: https://20.108.25.134/NorthernKingdoms/nk-site/cataloguing.html");
 
 } catch (PDOException $e) {
     echo json_encode(["error" => "Database error: " . $e->getMessage()]);

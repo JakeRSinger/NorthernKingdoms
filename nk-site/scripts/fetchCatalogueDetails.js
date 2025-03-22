@@ -297,27 +297,27 @@ function artefactSubmit() {
 }
 
 // Form Submission
-document.getElementById("catalogue-form").addEventListener("submit", async function(event) {
-    event.preventDefault();  // Prevent form from reloading
+// document.getElementById("catalogue-form").addEventListener("submit", async function(event) {
+//     event.preventDefault();  // Prevent form from reloading
 
-    let formData = new FormData(this);  // Get all form data
+//     let formData = new FormData(this);  // Get all form data
 
-    try {
-        const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/cataloguingHandler.php", {
-            method: "POST",
-            body: formData,
-        });
+//     try {
+//         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/cataloguingHandler.php", {
+//             method: "POST",
+//             body: formData,
+//         });
 
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error || "Upload failed");
+//         const data = await response.json();
+//         if (!response.ok) throw new Error(data.error || "Upload failed");
 
-        console.log("Response:", data);
-        alert("Artefact catalogued successfully!");
-    } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred: " + error.message);
-    }
-});
+//         console.log("Response:", data);
+//         alert("Artefact catalogued successfully!");
+//     } catch (error) {
+//         console.error("Error:", error);
+//         alert("An error occurred: " + error.message);
+//     }
+// });
 
 
 
