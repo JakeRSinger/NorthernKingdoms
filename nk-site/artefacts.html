@@ -10,17 +10,18 @@
 
     <script type="text/javascript" src="scripts/hammer.js"></script>
     <script type="text/javascript" src="scripts/modeAndNav.js"></script>
-    <script type="text/javascript" src="scripts/account.js"></script>  
+    <script type="text/javascript" src="scripts/account.js"></script>
+    <script type="text/javascript" src="scripts/fetchArtefacts.js"></script>
 
-    <title>The Northern Kingdoms Museum</title>
+    <title>Artefacts - The Northern Kingdoms Museum</title>
 </head>
 <body>
 
     <img src="img/menu.png" id="nav-toggle" class="nav-toggle white-img">
     <nav>
         <ul class="nav-links">
-            <li><a class="active" href="index.html">Home</a></li>
-            <li><a href="artefacts.html">Artefacts</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a class="active" href="artefacts.html">Artefacts</a></li>
             <li><a href="#">Analysis</a></li>
             <li><a href="cataloguing.html">Cataloguing</a></li>
             <li><a id="login-link" href="login.html">Login</a></li>
@@ -32,13 +33,29 @@
         <div class="content-container">
             <div class="header">
                 <div class="header-content">
-                    <div class="primary-heading">The Northern Kingdoms Museum</div>
+                    <div class="primary-heading">Artefacts</div>
                 </div>
-                <img class="header-image" src="img/index-image.png">
             </div>
         </div>
     </header>
 
+    <div class="section-secondary">
+
+        <div class="search-container">
+                <form class="search-form" onsubmit="return false">
+                    <div class="search-pairing">
+                        <input type="text" id="search" class="searchbar" placeholder="Search..." name="search">
+                        <button class="search-button" type="submit"><img class="search-img" src="img/search.png"></button>
+                    </div>
+                </form>
+            </div>
+
+        <div class="content-container">
+            <div class="artefacts-container" id="artefacts-container">
+
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>
