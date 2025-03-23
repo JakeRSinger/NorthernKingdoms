@@ -403,6 +403,7 @@ button:hover, input[type=file]::file-selector-button:hover {
     grid-template-rows: repeat(1, 1fr);
     grid-gap: 3rem;
     max-width: 150rem;
+    margin: auto;
 }
 
 .artefactDiv {
