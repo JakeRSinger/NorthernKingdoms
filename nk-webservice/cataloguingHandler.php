@@ -114,7 +114,7 @@ try {
         }
         
         $uniqueFilename = "$artefact_id-" . time() . ".$imageExtension";
-        $imagePath = $uploadDir . $uniqueFilename;
+        $imagePath = "/NorthernKingdoms/uploads/$artefact_dig_site_no/" . $uniqueFilename;
         
         if (move_uploaded_file($_FILES['artefact_image']['tmp_name'], $imagePath)) {
             $stmt = $pdo->prepare("UPDATE m_artefact SET artefact_image = :image_path WHERE artefact_id = :artefact_id");
