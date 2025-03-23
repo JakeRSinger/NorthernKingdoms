@@ -385,6 +385,59 @@ button:hover, input[type=file]::file-selector-button:hover {
     margin-right: 1rem;
 }
 
+/* Artefact display */
+
+.artefacts-container > * {
+    border: 2px solid var(--tertiary-colour);
+    background-color: var(--secondary-colour);
+    margin-inline: 2rem;
+}
+
+.artefacts-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-gap: 3rem;
+    margin-right: 10rem;
+    margin-left: 5rem;
+}
+
+.artefactDiv {
+    width: auto;
+}
+
+.detailsDiv {
+    font-family: var(--heading-font);
+    font-size: 1.6rem;
+    color: var(--secondary-heading-colour);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.artefactDiv img {
+    object-fit: cover;
+    width: 100%;
+}
+
+.artefact-pairing {
+    width: 100%;
+    background-color: var(--tertiary-colour);
+    height: 8.1rem;
+    min-width: 12.5rem;
+}
+
+.artefact-pairing > *, .dig-pairing > * {
+    color: var(--white-text);
+    text-transform: uppercase;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
 
 /* Media */
 @media screen and (max-width: 1870px) {

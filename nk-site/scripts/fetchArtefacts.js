@@ -29,18 +29,20 @@ function writeArtefacts(artefacts) {
         const artefactDiv = document.createElement('div');
         artefactDiv.classList.add('artefact');
 
+        var imageSource = !artefact.artefact_image ? "img/nk-logo.jpeg" : artefact.artefact_image;
+
         const img = document.createElement('img');
-        img.src = artefact.artefact_image;
+        img.src = imageSource;
         img.alt = "Artefact Image";
 
         const detailsDiv = document.createElement('div');
         detailsDiv.classList.add('detailsDiv');
 
         const artefactPair = document.createElement('div');
-        artefactPair.classList.add('cataloguing-pairing');
+        artefactPair.classList.add('artefact-pairing');
 
         const digPair = document.createElement('div');
-        digPair.classList.add('cataloguing-pairing');
+        digPair.classList.add('artefact-pairing');
 
         const artefactHeading = document.createElement('div');
         artefactHeading.innerText = 'Artefact ID:';
@@ -60,13 +62,16 @@ function writeArtefacts(artefacts) {
         digSiteNo.id = `dig-${artefact.artefact_dig_site_no}`;
         digSiteNo.innerText = artefact.artefact_dig_site_no;
 
-        // Append elements correctly
+        // Append elements
         artefactDiv.appendChild(img);
         artefactDiv.appendChild(detailsDiv);
+
         detailsDiv.appendChild(artefactPair);
         detailsDiv.appendChild(digPair);
+
         artefactPair.appendChild(artefactHeading);
         artefactPair.appendChild(artefactID);
+
         digPair.appendChild(digHeading);
         digPair.appendChild(digSiteNo);
 
