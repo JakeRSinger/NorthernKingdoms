@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         for (const artefact of artefacts) {
             const artefactDiv = document.createElement('div');
-            artefactDiv.classList.add('artefact');
+            artefactDiv.classList.add('artefactDiv');
 
             var imageSource = !artefact.artefact_image ? "img/nk-logo.jpeg" : artefact.artefact_image;
 
