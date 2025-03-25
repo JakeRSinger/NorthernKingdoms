@@ -30,6 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const artefactDiv = document.createElement('div');
             artefactDiv.classList.add('artefactDiv');
 
+            // Event listener for details page
+            artefactDiv.addEventListener('click', function(){
+                window.location.replace("https://20.108.25.134/NorthernKingdoms/nk-site/artefactDetails.html?artefactSelected=" + artefact.artefact_id);
+            });
+
             var imageSource = !artefact.artefact_image ? "img/nk-logo.jpeg" : artefact.artefact_image;
 
             const img = document.createElement('img');
@@ -80,4 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
             container.appendChild(artefactDiv);
         }
     }
+
+
+
 });
+

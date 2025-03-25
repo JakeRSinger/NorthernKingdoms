@@ -13,7 +13,16 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 try {
-    $stmt = $pdo->query("SELECT * FROM m_artefact");
+
+    // Get ID
+    $artefactSelected = isset($_GET['artefactSelected']) ? trim($_GET['artefactSelected']) : "";
+
+    $stmt = $pdo->prepare("SELECT * FROM m_artefact WHERE artefact_id LIKE :artefactID");
+
+    $artefactID = "%{$artefactSelected}%";
+    $stmt->bindParam(':artefactID', $artefactID, PDO::PARAM_STR);
+
+    $stmt->execute();
     $artefacts = $stmt->fetchAll();
 
     if ($artefacts)

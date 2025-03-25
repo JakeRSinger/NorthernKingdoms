@@ -36,7 +36,7 @@ try {
                                 OR artefact_functional_group LIKE :search
                                 OR artefact_material LIKE :search
                                 OR artefact_decorative_style LIKE :search
-                                OR artefact_location_id LIKE :search");
+                                OR artefact_location_id LIKE :search;");
 
     // Bind the search term correctly
     $searchTerm = "%{$search}%";
