@@ -1,9 +1,15 @@
 window.addEventListener("load", function () {
     const params = new URLSearchParams(window.location.search);
-    artefactID = params.get("artefactSelected");
-     
+    const artefactID = params.get("artefactSelected");
+
+    if (!artefactID) {
+        console.error("No artefact ID found in URL.");
+        return;
+    }
+
     artefactSelection(artefactID);
 });
+
 
 async function artefactSelection(artefactID) {
     try {
@@ -13,7 +19,7 @@ async function artefactSelection(artefactID) {
         const artefacts = await response.json();
         if (!artefacts || artefacts.error) throw new Error(artefacts.error || "Ininnertext = id response data");
 
-        writeArtefacts(artefacts);
+        writeArtefacts(artefacts[0]);
     } catch (error) {
         console.error("Fetch error:", error.message);
     }
@@ -22,23 +28,31 @@ async function artefactSelection(artefactID) {
 function writeArtefacts(artefact) {
     if (!artefact) return;
 
-    // Fill fields from database
-    document.getElementById("artefact_date_found").innerText = artefact.artefact_date_found || "";
-    document.getElementById("artefact_broad_subperiod").innerText = artefact.artefact_broad_subperiod || "";
-    document.getElementById("artefact_date_earliest").innerText = artefact.artefact_date_earliest || "";
-    document.getElementById("artefact_date_latest").innerText = artefact.artefact_date_latest || "";
-    document.getElementById("artefact_weight").innerText = artefact.artefact_weight || "";
-    document.getElementById("artefact_height").innerText = artefact.artefact_height || "";
-    document.getElementById("artefact_length").innerText = artefact.artefact_length || "";
-    document.getElementById("artefact_breadth").innerText = artefact.artefact_breadth || "";
-    document.getElementById("artefact_classification").innerText = artefact.artefact_classification || "";
-    document.getElementById("artefact_functional_group").innerText = artefact.artefact_functional_group || "";
-    document.getElementById("artefact_material").innerText = artefact.artefact_material || "";
-    document.getElementById("artefact_decorative_style").innerText = artefact.artefact_decorative_style || "";
-    document.getElementById("artefact_desc").innerText = artefact.artefact_desc || "";
-    document.getElementById("artefact_location_id").innerText = artefact.artefact_location_id || "";
-    document.getElementById("artefact_dig_site_no").innerText = artefact.artefact_dig_site_no || "";
+    const setText = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) element.innerText = value || "N/A";
+    };
 
-    // Set image source
-    document.getElementById("artefact_image").src = artefact.artefact_image || "https://20.108.25.134/NorthernKingdoms/nk-site/img/nk-logo.jpeg";
+    setText("artefact_date_found", artefact.artefact_date_found);
+    setText("artefact_broad_subperiod", artefact.artefact_broad_subperiod);
+    setText("artefact_date_earliest", artefact.artefact_date_earliest);
+    setText("artefact_date_latest", artefact.artefact_date_latest);
+    setText("artefact_weight", artefact.artefact_weight);
+    setText("artefact_height", artefact.artefact_height);
+    setText("artefact_length", artefact.artefact_length);
+    setText("artefact_breadth", artefact.artefact_breadth);
+    setText("artefact_classification", artefact.artefact_classification);
+    setText("artefact_functional_group", artefact.artefact_functional_group);
+    setText("artefact_material", artefact.artefact_material);
+    setText("artefact_decorative_style", artefact.artefact_decorative_style);
+    setText("artefact_desc", artefact.artefact_desc);
+    setText("artefact_location_id", artefact.artefact_location_id);
+    setText("artefact_dig_site_no", artefact.artefact_dig_site_no);
+
+    // Set image safely
+    const imgElement = document.getElementById("artefact_image");
+    if (imgElement) {
+        imgElement.src = artefact.artefact_image || "https://20.108.25.134/NorthernKingdoms/nk-site/img/nk-logo.jpeg";
+        imgElement.alt = "Artefact Image";
+    }
 }
