@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Event listener for details page
             artefactDiv.addEventListener('click', function(){
+                console.log("Clicked: " + artefact.artefact_id);
                 window.location.replace("https://20.108.25.134/NorthernKingdoms/nk-site/artefactDetails.html?artefactSelected=" + artefact.artefact_id);
             });
 

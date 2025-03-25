@@ -38,4 +38,5 @@ function writeArtefacts(artefact) {
     $("#artefact_desc").innertext = (artefact.artefact_desc || "");
     $('#artefact_location_id').innertext = (artefact.artefact_location_id || "");
     $('#artefact_dig_site_no').innertext = (artefact.artefact_dig_site_no || "");
+    $('#artefact_image').src = (artefact.artefact_image || "https://20.108.25.134/NorthernKingdoms/nk-site/img/nk-logo.jpeg");
 }
