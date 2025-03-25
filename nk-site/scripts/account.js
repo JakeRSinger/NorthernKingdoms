@@ -23,7 +23,7 @@ function logoutLink() {
     const loginLink = document.getElementById("login-link");
 
     if (loginLink && loggedIn) {
-        loginLink.href = "https://20.128.25.134/NorthernKingdoms/nk-webservice/logout.php";
+        loginLink.href = "https://20.108.25.134/NorthernKingdoms/nk-webservice/logout.php";
         loginLink.textContent = "Logout";
 
         // Add logout event to clear sessionStorage
