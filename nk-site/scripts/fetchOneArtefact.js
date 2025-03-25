@@ -7,7 +7,7 @@ window.addEventListener("load", function () {
 
 async function artefactSelection(artefactID) {
     try {
-        const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/artefact.php?artefactSelected=" + encodeURIComponent(artefactID));
+        const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/artefacts.php?artefactSelected=" + encodeURIComponent(artefactID));
         if (!response.ok) throw new Error(`Error fetching artefact: ${response.status}`);
 
         const artefacts = await response.json();
