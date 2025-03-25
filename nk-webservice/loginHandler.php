@@ -23,8 +23,9 @@
                 if (password_verify($password, $row['user_password'])) {
                     $_SESSION['user_email'] = $username;
                     $_SESSION['user_id'] = $row['user_id'];
-                    
 
+                    echo $_SESSION['user_id'];
+                    
                     if ($row["user_id"] === 1) {
                         header("Location: https://20.108.25.134/NorthernKingdoms/nk-site/register.html");
                         exit();
