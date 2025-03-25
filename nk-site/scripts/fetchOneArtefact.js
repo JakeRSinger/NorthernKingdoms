@@ -22,6 +22,7 @@ async function artefactSelection(artefactID) {
 function writeArtefacts(artefact) {
     if (!artefact) return;
 
+    // Fill fields from database
     document.getElementById("artefact_date_found").innerText = artefact.artefact_date_found || "";
     document.getElementById("artefact_broad_subperiod").innerText = artefact.artefact_broad_subperiod || "";
     document.getElementById("artefact_date_earliest").innerText = artefact.artefact_date_earliest || "";
