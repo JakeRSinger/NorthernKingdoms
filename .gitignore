@@ -399,3 +399,6 @@ FodyWeavers.xsd
 
 # Image Folder
 uploads/
+
+# Connection String
+nk-webservice/db.php
