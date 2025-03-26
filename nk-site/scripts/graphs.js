@@ -28,23 +28,20 @@ async function fetchDigArtefacts() {
 }
 
 function writeDigArtefacts(artefacts) {
-    const xArray = [];
-    const yArray = [];
-
-    for (const artefact of artefacts) {
-        xArray.push(artefact.artefact_dig_site_no);
-        yArray.push(artefact.count);
-    }
+    const xArray = artefacts.map(a => a.artefact_dig_site_no);
+    const yArray = artefacts.map(a => a.count);
 
     const data = [{ labels: xArray, values: yArray, type: "pie" }];
-    const layout = { title: "Artefacts From Each Dig" };
 
-    Plotly.newPlot('dig-artefacts', data, {
+    const layout = {
+        title: "Artefacts From Each Dig",
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         font: {
             family: 'Epilogue, sans-serif',
             color: 'var(--primary-heading-colour)'
         }
-    });
+    };
+
+    Plotly.newPlot('dig-artefacts', data, layout);
 }
