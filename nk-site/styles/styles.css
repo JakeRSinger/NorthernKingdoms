@@ -456,6 +456,10 @@ button:hover, input[type=file]::file-selector-button:hover {
     border: 3px solid var(--tertiary-colour);
 }
 
+.graph > * {
+    color: var(--primary-heading-colour);
+    font-family: var(--heading-font);
+}
 
 
 
