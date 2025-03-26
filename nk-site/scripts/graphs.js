@@ -28,11 +28,13 @@ async function fetchDigArtefacts() {
 }
 
 function writeDigArtefacts(artefacts) {
+    console.log("Artefacts data received:", artefacts);
+
     const xArray = artefacts.map(a => a.artefact_dig_site_no);
     const yArray = artefacts.map(a => a.count);
 
     const data = [{ labels: xArray, values: yArray, type: "pie" }];
-
+    
     const layout = {
         title: "Artefacts From Each Dig",
         paper_bgcolor: 'rgba(0,0,0,0)',
@@ -43,5 +45,7 @@ function writeDigArtefacts(artefacts) {
         }
     };
 
-    Plotly.newPlot('dig-artefacts', data, layout);
+    console.log("Plotting data...");
+    Plotly.newPlot("dig-artefacts", data, layout);
 }
+
