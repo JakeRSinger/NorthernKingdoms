@@ -39,5 +39,12 @@ function writeDigArtefacts(artefacts) {
     const data = [{ labels: xArray, values: yArray, type: "pie" }];
     const layout = { title: "Artefacts From Each Dig" };
 
-    Plotly.newPlot("dig-artefacts", data, layout);
+    Plotly.newPlot('dig-artefacts', data, {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        font: {
+            family: 'Epilogue, sans-serif',
+            color: 'var(--primary-heading-colour)'
+        }
+    });
 }
