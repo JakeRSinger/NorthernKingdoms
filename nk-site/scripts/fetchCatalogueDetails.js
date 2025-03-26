@@ -46,6 +46,12 @@ async function fetchLocations() {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/locations.php");
         if (!response.ok) throw new Error(`Error fetching locations: ${response.status}`);
 
+        if (response.status === 401) {
+            // Redirect to login if unauthorised
+            window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
+            return;
+        }
+
         const locations = await response.json();
         if (!locations || locations.Error) throw new Error(locations.Error || "Invalid response data");
 
@@ -73,6 +79,12 @@ async function fetchDigs() {
     try {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/digs.php");
         if (!response.ok) throw new Error(`Error fetching digs: ${response.status}`);
+
+        if (response.status === 401) {
+            // Redirect to login if unauthorised
+            window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
+            return;
+        }
 
         const digs = await response.json();
         if (!digs || digs.Error) throw new Error(digs.Error || "Invalid response data");
@@ -102,6 +114,12 @@ async function fetchArtefacts() {
     try {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/artefacts.php");
         if (!response.ok) throw new Error(`Error fetching artefacts: ${response.status}`);
+
+        if (response.status === 401) {
+            // Redirect to login if unauthorised
+            window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
+            return;
+        }
 
         const artefacts = await response.json();
         if (!artefacts || artefacts.Error) throw new Error(artefacts.Error || "Invalid response data");

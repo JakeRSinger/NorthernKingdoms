@@ -10,20 +10,24 @@
 
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
 
+    <!-- Plotly.js library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
     <script type="text/javascript" src="scripts/hammer.js"></script>
     <script type="text/javascript" src="scripts/modeAndNav.js"></script>
-    <script type="text/javascript" src="scripts/account.js"></script>  
+    <script type="text/javascript" src="scripts/account.js"></script>
+    <script type="text/javascript" src="scripts/graphs.js"></script>
 
-    <title>The Northern Kingdoms Museum</title>
+    <title>Analysis - The Northern Kingdoms Museum</title>
 </head>
 <body>
 
     <img src="img/menu.png" id="nav-toggle" class="nav-toggle white-img">
     <nav>
         <ul class="nav-links">
-            <li><a class="active" href="index.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="artefacts.html">Artefacts</a></li>
-            <li><a href="analysis.html">Analysis</a></li>
+            <li><a class="active" href="analysis.html">Analysis</a></li>
             <li><a href="cataloguing.html">Cataloguing</a></li>
             <li><a id="login-link" href="login.html">Login</a></li>
         </ul>
@@ -34,13 +38,20 @@
         <div class="content-container">
             <div class="header">
                 <div class="header-content">
-                    <div class="primary-heading">The Northern Kingdoms Museum</div>
+                    <div class="alt-title">The Northern Kingdoms Museum</div>
+                    <div class="primary-heading">Analysis</div>
                 </div>
-                <img class="header-image" src="img/index-image.png">
             </div>
         </div>
     </header>
 
+    <div class="section-secondary">
+        <div class="content-container">
+            <div id="dig-artefacts" class="graph">
+
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>
