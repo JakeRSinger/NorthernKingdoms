@@ -58,7 +58,7 @@ function writeArtefacts(artefact) {
     setText("artefact_location_id", artefact.artefact_location_id);
     setText("artefact_dig_site_no", artefact.artefact_dig_site_no);
 
-    // Set image safely
+    // Set image
     const imgElement = document.getElementById("artefact_image");
     if (imgElement) {
         imgElement.src = artefact.artefact_image || "https://20.108.25.134/NorthernKingdoms/nk-site/img/nk-logo.jpeg";
