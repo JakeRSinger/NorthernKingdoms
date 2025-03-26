@@ -1,5 +1,6 @@
 <?php
 
+// Removed connection variables for GitHub
     $host = "";
     $dbName = "";
     $username = "";
