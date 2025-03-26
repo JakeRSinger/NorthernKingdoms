@@ -1,11 +1,10 @@
-window.addEventListener('load', function(){
+window.addEventListener('load', function() {
     fetchDigArtefacts();
 });
 
 async function fetchDigArtefacts() {
     try {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/digArtefact.php");
-        if (!response.ok) throw new Error(`Error fetching artefacts: ${response.status}`);
 
         if (response.status === 401) {
             // Redirect to login if unauthorised
@@ -13,8 +12,14 @@ async function fetchDigArtefacts() {
             return;
         }
 
+        if (!response.ok) {
+            throw new Error(`Error fetching artefacts: ${response.status}`);
+        }
+
         const artefacts = await response.json();
-        if (!artefacts || artefacts.error) throw new Error(artefacts.error || "Invalid response data");
+        if (!Array.isArray(artefacts) || artefacts.length === 0) {
+            throw new Error("Invalid response data");
+        }
 
         writeDigArtefacts(artefacts);
     } catch (error) {
@@ -25,13 +30,14 @@ async function fetchDigArtefacts() {
 function writeDigArtefacts(artefacts) {
     const xArray = [];
     const yArray = [];
-    const layout = {title:"Artefacts From Each Dig"}
-    const data = [{labels:xArray, values:yArray, type:"pie"}];
 
-    for (const artefact in artefacts) {
+    for (const artefact of artefacts) {
         xArray.push(artefact.artefact_dig_site_no);
         yArray.push(artefact.count);
     }
+
+    const data = [{ labels: xArray, values: yArray, type: "pie" }];
+    const layout = { title: "Artefacts From Each Dig" };
 
     Plotly.newPlot("dig-artefacts", data, layout);
 }

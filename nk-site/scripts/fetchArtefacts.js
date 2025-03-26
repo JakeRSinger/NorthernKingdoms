@@ -11,12 +11,15 @@ document.addEventListener('DOMContentLoaded', function () {
     async function fetchArtefacts() {
         try {
             const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/artefactSearch.php?search=" + encodeURIComponent(search));
-            if (!response.ok) throw new Error(`Error fetching artefacts: ${response.status}`);
-
+            
             if (response.status === 401) {
                 // Redirect to login if unauthorised
                 window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
                 return;
+            }
+    
+            if (!response.ok) {
+                throw new Error(`Error fetching artefacts: ${response.status}`);
             }
 
             const artefacts = await response.json();

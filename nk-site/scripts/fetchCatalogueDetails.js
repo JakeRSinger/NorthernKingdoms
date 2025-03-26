@@ -44,12 +44,15 @@ $(document).on('select2:select', '#artefact_dig_site_no', function() {
 async function fetchLocations() {
     try {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/locations.php");
-        if (!response.ok) throw new Error(`Error fetching locations: ${response.status}`);
 
         if (response.status === 401) {
             // Redirect to login if unauthorised
             window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
             return;
+        }
+
+        if (!response.ok) {
+            throw new Error(`Error fetching artefacts: ${response.status}`);
         }
 
         const locations = await response.json();
@@ -78,12 +81,15 @@ function showLocations(locations) {
 async function fetchDigs() {
     try {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/digs.php");
-        if (!response.ok) throw new Error(`Error fetching digs: ${response.status}`);
 
         if (response.status === 401) {
             // Redirect to login if unauthorised
             window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
             return;
+        }
+
+        if (!response.ok) {
+            throw new Error(`Error fetching artefacts: ${response.status}`);
         }
 
         const digs = await response.json();
@@ -113,12 +119,15 @@ var artefactsFetched = false;
 async function fetchArtefacts() {
     try {
         const response = await fetch("https://20.108.25.134/NorthernKingdoms/nk-webservice/artefacts.php");
-        if (!response.ok) throw new Error(`Error fetching artefacts: ${response.status}`);
 
         if (response.status === 401) {
             // Redirect to login if unauthorised
             window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
             return;
+        }
+
+        if (!response.ok) {
+            throw new Error(`Error fetching artefacts: ${response.status}`);
         }
 
         const artefacts = await response.json();
@@ -271,7 +280,7 @@ async function locationSubmit() {
             });
 
             if (response.status === 401) {
-                // Redirect to login if unauthorized
+                // Redirect to login if unauthorised
                 window.location.href = "https://20.108.25.134/NorthernKingdoms/nk-site/login.html";
                 return;
             }
