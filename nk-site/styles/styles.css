@@ -30,6 +30,7 @@
 html {
     font-size: 62.5%;
     background-color: var(--primary-colour);
+    min-width: 100%;
 }
 
 body {
@@ -221,12 +222,12 @@ textarea {
 }
 
 .popup-form .select2-container, .select2-container {
-    width: 100% !important;
+    width: 35rem !important;
 }
 
 .popup-form .select2-selection__rendered, .select2-selection__rendered {
     line-height: 4rem !important;
-    width: 100% !important;
+    width: 35rem !important;
     color: #000000 !important;
 }
 
@@ -258,6 +259,9 @@ textarea {
 
 }
 
+.upload-button {
+    min-width: 10rem;
+}
 
 button, input[type=file]::file-selector-button {
     font-family: var(--primary-font);
@@ -467,14 +471,128 @@ button:hover, input[type=file]::file-selector-button:hover {
 @media screen and (max-width: 1870px) {
 
     input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea, select {
-        width: 20rem;
+        max-width: 30rem;
+        min-width: 30rem;
     }
 
     .cataloguing-details {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
 
     .cataloguing-details > * {
         max-width: 50rem;
     }
+    
+}
+
+@media screen and (max-width: 1300px) {
+
+    .nav-links li {
+        padding: 1rem 5rem;
+    }
+
+    .header-image {
+        max-width: 50rem;
+    }
+
+}
+
+@media screen and (max-width: 940px) {
+
+    .header-image {
+        max-width: 40rem;
+    }
+
+}
+
+@media screen and (max-width: 850px) {
+    .nav-links li {
+        padding: 1rem 3rem;
+    }
+}
+
+@media screen and (max-width: 850px) {
+
+    .header {
+        flex-direction: column;
+    }
+
+    .header > * {
+        margin: auto;
+        margin-bottom: 3rem;
+        text-align: center;
+        
+    }
+
+}
+
+@media screen and (max-width: 650px) {
+
+    :root {
+        font-size: 55%;
+    }
+
+}
+
+@media screen and (max-width: 560px) {
+
+    :root {
+        font-size: 45%;
+    }
+    
+}
+
+@media screen and (max-width: 470px) {
+
+    .nav-toggle {
+        display: block;
+        position: fixed;
+        top: 1.5rem;
+        left: 1.5rem;
+        z-index: 11;
+    }
+
+    nav {
+        width: 0vw;
+        min-height: 100vh;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        transform: translateX(-70rem);
+        transition: all 0.3s ease-in-out;
+        padding-top: 20rem;
+    }
+    .nav-links > * {
+        margin-bottom: 5rem;
+    }
+
+    .dark-mode-toggle {
+        max-width: 6rem;
+        padding: 0;
+        height: 6rem;
+        margin-inline: auto;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+        font-size: 4rem;
+        margin-bottom: 3rem;
+    }
+
+    .show-nav {
+        width: 100%;
+        transform: translateX(0);
+    }
+
+
+    @media screen and (max-width: 350px) {
+
+        .header-image {
+            max-width: 30rem;
+        }
+
+    }
+
 }
