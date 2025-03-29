@@ -25,6 +25,14 @@
     --secondary-heading-colour: #e5e5e5;
 }
 
+.dark-mode .white-img {
+    filter: invert(100%);
+}
+
+.white-img {
+    height: 3rem;
+    padding: 0.3rem 2rem;
+}
 
 
 html {
@@ -50,6 +58,7 @@ body {
     padding: 10rem 5rem;
     background-color: var(--secondary-colour);
     color: var(--secondary-heading-colour);
+    width: 100vw;
 }
 
 .content-container {
@@ -78,6 +87,10 @@ body {
     margin-bottom: 1rem;
 }
 
+.alt-title {
+    margin-bottom: 1rem;
+}
+
 /* Header */
 .header {
     display: flex;
@@ -92,17 +105,6 @@ body {
 .header-image {
     max-width: 60rem;
     border: 5px solid var(--tertiary-colour);
-}
-
-
-/* Dark Mode */
-.dark-mode .white-img {
-    filter: invert(100%);
-}
-
-.white-img {
-    height: 3rem;
-    padding: 0.3rem 2rem;
 }
 
 
@@ -189,8 +191,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
     border: 1px solid var(--secondary-colour);
     border-radius: 5px;
     max-height: 5rem;
-    max-width: 38rem;
-    min-width: 38rem;
+    width: 100%;
 }
 
 input[type="date"] {
@@ -222,12 +223,12 @@ textarea {
 }
 
 .popup-form .select2-container, .select2-container {
-    width: 35rem !important;
+    width: 100% !important;
 }
 
 .popup-form .select2-selection__rendered, .select2-selection__rendered {
     line-height: 4rem !important;
-    width: 35rem !important;
+    width: 100% !important;
     color: #000000 !important;
 }
 
@@ -259,9 +260,6 @@ textarea {
 
 }
 
-.upload-button {
-    min-width: 10rem;
-}
 
 button, input[type=file]::file-selector-button {
     font-family: var(--primary-font);
@@ -376,7 +374,7 @@ button:hover, input[type=file]::file-selector-button:hover {
     justify-self: center;
     background-color: var(--primary-colour);
     border-radius: 20px;
-    padding: 1rem 0;
+    padding: 1rem;
 }
 
 .search-img {
@@ -470,19 +468,18 @@ button:hover, input[type=file]::file-selector-button:hover {
 /* Media */
 @media screen and (max-width: 1870px) {
 
-    input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea, select {
-        max-width: 30rem;
-        min-width: 30rem;
-    }
-
-    .cataloguing-details {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
     .cataloguing-details > * {
         max-width: 50rem;
     }
     
+}
+
+@media screen and (max-width: 1500px) {
+
+    .cataloguing-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }
 
 @media screen and (max-width: 1300px) {
@@ -506,14 +503,12 @@ button:hover, input[type=file]::file-selector-button:hover {
 }
 
 @media screen and (max-width: 850px) {
+
     .nav-links li {
         padding: 1rem 3rem;
     }
-}
 
-@media screen and (max-width: 850px) {
-
-    .header {
+        .header {
         flex-direction: column;
     }
 
@@ -522,6 +517,14 @@ button:hover, input[type=file]::file-selector-button:hover {
         margin-bottom: 3rem;
         text-align: center;
         
+    }
+
+}
+
+@media screen and (max-width: 775px) {
+
+    .cataloguing-details {
+        grid-template-columns: repeat(1, 1fr);
     }
 
 }
@@ -586,13 +589,18 @@ button:hover, input[type=file]::file-selector-button:hover {
         transform: translateX(0);
     }
 
+}
 
-    @media screen and (max-width: 350px) {
+@media screen and (max-width: 350px) {
 
-        .header-image {
-            max-width: 30rem;
-        }
-
+    .header-image {
+        max-width: 30rem;
     }
 
+}
+
+@media screen and (min-width: 1080px) {
+    :root {
+        font-size: 75%;
+    }
 }
