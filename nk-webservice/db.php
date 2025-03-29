@@ -1,10 +1,10 @@
 <?php
 
 // Removed connection variables for GitHub
-    $host = "";
-    $dbName = "";
-    $username = "";
-    $password = '';
+    $host = "20.108.25.134";
+    $dbName = "NorthernKingdoms";
+    $username = "Admin_21011375";
+    $password = 'Th3@dm1nPas5';
 
 
     try {
