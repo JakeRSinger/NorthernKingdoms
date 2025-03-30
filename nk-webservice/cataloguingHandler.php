@@ -141,6 +141,7 @@ try {
     }
     
     echo json_encode(["success" => "Artefact successfully catalogued/updated."]);
+    header("Location: https://20.108.25.134/NorthernKingdoms/nk-site/cataloguing.html");
     
 } catch (PDOException $e) {
     echo json_encode(["error" => "Database error: " . $e->getMessage()]);
