@@ -55,11 +55,17 @@ try {
     $checkStmt = $pdo->prepare("SELECT COUNT(artefact_id) AS count, artefact_location_last_changed, artefact_location_id 
                                         FROM m_artefact 
                                         WHERE artefact_id = :artefact_id 
-                                        AND  artefact_dig_site_no = :dig_site
-                                        GROUP BY artefact_id, artefact_dig_site_no;");
+                                        AND artefact_dig_site_no = :dig_site
+                                        GROUP BY artefact_id, artefact_dig_site_no, artefact_location_last_changed, artefact_location_id;
+");
     $checkStmt->execute([':artefact_id' => $artefact_id,
                                 ':dig_site' => $artefact_dig_site_no]);
     $row = $checkStmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$row) {
+        echo json_encode(["error" => "No record found for artefact_id $artefact_id"]);
+        exit;
+    }
     
     $artefact_location_last_changed = ($row['artefact_location_id'] == $artefact_location_id) ? $row['artefact_location_last_changed'] : date('Y-m-d H:i:s');
     
@@ -72,9 +78,9 @@ try {
             artefact_breadth = :breadth, artefact_functional_group = :functional_group,
             artefact_material = :material, artefact_decorative_style = :decorative_style,
             artefact_location_last_changed = :location_last_changed,
-            artefact_location_id = :location_id, artefact_dig_site_no = :dig_site_no,
-            artefact_edited_by = :edited_by
-            WHERE artefact_id = :artefact_id");
+            artefact_location_id = :location_id, artefact_edited_by = :edited_by
+            WHERE artefact_id = :artefact_id
+            AND artefact_dig_site_no = :dig_site_no");
     } else {
         $stmt = $pdo->prepare("INSERT INTO m_artefact (
             artefact_id, artefact_date_found, artefact_broad_subperiod, artefact_date_earliest,
@@ -85,7 +91,7 @@ try {
             VALUES (
             :artefact_id, :date_found, :broad_subperiod, :date_earliest, :date_latest,
             :classification, :description, :weight, :height, :length, :breadth,
-            :functional_group, :material, :decorative_style, NOW(), :location_id,
+            :functional_group, :material, :decorative_style, :location_last_changed, :location_id,
             :dig_site_no, :edited_by)");
     }
     
