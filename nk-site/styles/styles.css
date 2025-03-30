@@ -309,6 +309,7 @@ button:hover, input[type=file]::file-selector-button:hover {
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    min-width: 100%;
 }
 
 .cataloguing-pairing {
