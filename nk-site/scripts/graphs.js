@@ -43,6 +43,15 @@ function writeDigArtefacts(artefacts) {
                 color: "var(--primary-heading-colour)"
             }
         },
+
+        legend: {
+            font: {
+                family: "Epilogue, sans-serif",
+                color: "var(--primary-heading-colour)",
+                size: 12
+            }
+        },
+
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)'
     };

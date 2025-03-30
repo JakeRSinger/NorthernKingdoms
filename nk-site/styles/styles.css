@@ -569,7 +569,8 @@ button:hover, input[type=file]::file-selector-button:hover {
     :root {
         font-size: 45%;
     }
-    
+
+    .js-plotly-plot .plotly .main-svg .legend {transform: translate(0px, 300px)}
 }
 
 @media screen and (max-width: 470px) {
