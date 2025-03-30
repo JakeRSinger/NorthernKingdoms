@@ -61,11 +61,6 @@ try {
     $checkStmt->execute([':artefact_id' => $artefact_id,
                                 ':dig_site' => $artefact_dig_site_no]);
     $row = $checkStmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$row) {
-        echo json_encode(["error" => "No record found for artefact_id $artefact_id"]);
-        exit;
-    }
     
     $artefact_location_last_changed = ($row['artefact_location_id'] == $artefact_location_id) ? $row['artefact_location_last_changed'] : date('Y-m-d H:i:s');
     
