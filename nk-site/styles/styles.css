@@ -456,11 +456,14 @@ button:hover, input[type=file]::file-selector-button:hover {
     background-color: var(--primary-colour);
     border-radius: 10px;
     border: 3px solid var(--tertiary-colour);
+    display: flex;
+    align-content: center;
 }
 
 .graph > * {
     color: var(--primary-heading-colour);
     font-family: var(--heading-font);
+    width: 100%;
 }
 
 

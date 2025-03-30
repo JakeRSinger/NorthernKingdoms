@@ -47,7 +47,9 @@ function writeDigArtefacts(artefacts) {
         plot_bgcolor: 'rgba(0,0,0,0)'
     };
 
+    const config = {responsive: true};
+
     console.log("Plotting data...");
-    Plotly.newPlot("dig-artefacts", data, layout);
+    Plotly.newPlot("dig-artefacts", data, layout, config);
 }
 
