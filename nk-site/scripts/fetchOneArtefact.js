@@ -55,6 +55,7 @@ function writeArtefacts(artefact) {
     setText("artefact_material", artefact.artefact_material);
     setText("artefact_decorative_style", artefact.artefact_decorative_style);
     setText("artefact_desc", artefact.artefact_desc);
+    setText("artefact_id", artefact.artefact_id);
     setText("artefact_location_id", artefact.artefact_location_id);
     setText("artefact_dig_site_no", artefact.artefact_dig_site_no);
 
