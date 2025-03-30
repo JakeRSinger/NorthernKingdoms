@@ -1,6 +1,12 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start(); // Start session
 require 'db.php'; // Include database connection
+
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -9,6 +15,7 @@ header("Content-Type: application/json");
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
+    http_response_code(401);
     echo json_encode(["error" => "User not authenticated. Please log in."]);
     exit;
 }
