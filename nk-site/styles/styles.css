@@ -413,6 +413,9 @@ button:hover, input[type=file]::file-selector-button:hover {
     background-color: var(--tertiary-colour);
     cursor:pointer;
     pointer-events:auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .detailsDiv {
@@ -421,7 +424,8 @@ button:hover, input[type=file]::file-selector-button:hover {
     color: var(--secondary-heading-colour);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    margin-inline: auto;
+    justify-content: flex-end;
 }
 
 .artefactDiv img {
