@@ -52,8 +52,13 @@ try {
     
     extract($_POST);
     
-    $checkStmt = $pdo->prepare("SELECT COUNT(*) AS count, artefact_location_last_changed, artefact_location_id FROM m_artefact WHERE artefact_id = :artefact_id");
-    $checkStmt->execute([':artefact_id' => $artefact_id]);
+    $checkStmt = $pdo->prepare("SELECT COUNT(artefact_id) AS count, artefact_location_last_changed, artefact_location_id 
+                                        FROM m_artefact 
+                                        WHERE artefact_id = :artefact_id 
+                                        AND  artefact_dig_site_no = :dig_site
+                                        GROUP BY artefact_id, artefact_dig_site_no;");
+    $checkStmt->execute([':artefact_id' => $artefact_id,
+                                ':dig_site' => $artefact_dig_site_no]);
     $row = $checkStmt->fetch(PDO::FETCH_ASSOC);
     
     $artefact_location_last_changed = ($row['artefact_location_id'] == $artefact_location_id) ? $row['artefact_location_last_changed'] : date('Y-m-d H:i:s');
