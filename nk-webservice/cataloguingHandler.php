@@ -62,7 +62,7 @@ try {
                                 ':dig_site' => $artefact_dig_site_no]);
     $row = $checkStmt->fetch(PDO::FETCH_ASSOC);
     
-    $artefact_location_last_changed = ($row['artefact_location_id'] == $artefact_location_id) ? $row['artefact_location_last_changed'] : date('Y-m-d H:i:s');
+    $artefact_location_last_changed = ( $row && $row['artefact_location_id'] == $artefact_location_id) ? $row['artefact_location_last_changed'] : date('Y-m-d H:i:s');
     
     if ($row['count'] > 0) {
         $stmt = $pdo->prepare("UPDATE m_artefact SET
@@ -125,11 +125,15 @@ try {
         }
         
         $uniqueFilename = "$artefact_id-" . time() . ".$imageExtension";
-        $imagePath = "/NorthernKingdoms/uploads/$artefact_dig_site_no/" . $uniqueFilename;
+        $imagePath = $uploadDir . $uniqueFilename;  // Full server path
+        $dbImagePath = "/NorthernKingdoms/uploads/$artefact_dig_site_no/$uniqueFilename";  // Relative path for DB storage
+        
         
         if (move_uploaded_file($_FILES['artefact_image']['tmp_name'], $imagePath)) {
-            $stmt = $pdo->prepare("UPDATE m_artefact SET artefact_image = :image_path WHERE artefact_id = :artefact_id");
-            $stmt->execute([':image_path' => $imagePath, ':artefact_id' => $artefact_id]);
+            $stmt = $pdo->prepare("UPDATE m_artefact SET artefact_image = :image_path WHERE artefact_id = :artefact_id AND artefact_dig_site_no = :dig_site_no");
+            $stmt->execute([':image_path' => $dbImagePath,
+                                     ':artefact_id' => $artefact_id,
+                                     ':dig_site_no' => $artefact_dig_site_no]);
         } else {
             echo json_encode(["error" => "Failed to upload image."]);
             exit;
