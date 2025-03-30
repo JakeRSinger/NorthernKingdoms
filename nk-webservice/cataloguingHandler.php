@@ -26,8 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST)) {
     exit;
 }
 
-$pdo = new PDO($dsn, $db_user, $db_pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-
 $artefact_edited_by = $_SESSION['user_id'];
 
 try {
