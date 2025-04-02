@@ -26,7 +26,7 @@ async function artefactSelection(artefactID) {
         }
 
         const artefacts = await response.json();
-        if (!artefacts || artefacts.error) throw new Error(artefacts.error || "Ininnertext = id response data");
+        if (!artefacts || artefacts.error) throw new Error(artefacts.error || "Invalid response data");
 
         writeArtefacts(artefacts[0]);
     } catch (error) {

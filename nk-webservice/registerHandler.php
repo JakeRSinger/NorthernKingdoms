@@ -44,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Database Error: " . $e->getMessage();
     }
 
-    // Close the statement
-    $stmt = null;
+
 }
 ?>

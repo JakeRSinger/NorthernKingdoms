@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST)) {
 $artefact_edited_by = $_SESSION['user_id'];
 
 try {
+    // Validation
     $required_fields = [
         'artefact_id', 'artefact_date_found', 'artefact_broad_subperiod', 'artefact_date_earliest', 'artefact_date_latest', 
         'artefact_classification', 'artefact_desc', 'artefact_weight', 'artefact_height', 'artefact_length', 'artefact_breadth', 
@@ -52,18 +53,19 @@ try {
     
     extract($_POST);
     
+    // Check if location has changed
     $checkStmt = $pdo->prepare("SELECT COUNT(artefact_id) AS count, artefact_location_last_changed, artefact_location_id 
                                         FROM m_artefact 
                                         WHERE artefact_id = :artefact_id 
                                         AND artefact_dig_site_no = :dig_site
-                                        GROUP BY artefact_id, artefact_dig_site_no, artefact_location_last_changed, artefact_location_id;
-");
+                                        GROUP BY artefact_id, artefact_dig_site_no, artefact_location_last_changed, artefact_location_id;");
     $checkStmt->execute([':artefact_id' => $artefact_id,
                                 ':dig_site' => $artefact_dig_site_no]);
     $row = $checkStmt->fetch(PDO::FETCH_ASSOC);
     
     $artefact_location_last_changed = ( $row && $row['artefact_location_id'] == $artefact_location_id) ? $row['artefact_location_last_changed'] : date('Y-m-d H:i:s');
     
+    // Update if exists
     if ($row['count'] > 0) {
         $stmt = $pdo->prepare("UPDATE m_artefact SET
             artefact_date_found = :date_found, artefact_broad_subperiod = :broad_subperiod,
@@ -76,7 +78,7 @@ try {
             artefact_location_id = :location_id, artefact_edited_by = :edited_by
             WHERE artefact_id = :artefact_id
             AND artefact_dig_site_no = :dig_site_no");
-    } else {
+    } else { // Insert if does not exist
         $stmt = $pdo->prepare("INSERT INTO m_artefact (
             artefact_id, artefact_date_found, artefact_broad_subperiod, artefact_date_earliest,
             artefact_date_latest, artefact_classification, artefact_desc, artefact_weight,
